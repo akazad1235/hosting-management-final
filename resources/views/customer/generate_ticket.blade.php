@@ -8,12 +8,12 @@
         <div class="col-md-8 card p-3 my-5">
             {{-- Registration --}}
     <div class="mt-2" id="showcustomerRegistration">
-        <form class="needs-validation" id="registerFormValidation" method="POST" action="" novalidate>
+        <form class="needs-validation" method="POST" action="{{ route('customer.generate.ticket') }}" enctype=>
             @csrf
-            <input type="text" id="product_discounted_price" name="product_discounted_price" hidden>
+            {{-- <input type="text" id="product_discounted_price" name="product_discounted_price" hidden>
             <input type="hidden" class="cuppon_discounted_price" name="cuppon_discounted_price">
             <input type="text" id="total_discounted_price" name="total_discounted_price" hidden>
-            <input type="text" name="product_id" id="product_id" hidden>
+            <input type="text" name="product_id" id="product_id" hidden> --}}
             {{-- regustration inputs --}}
 
             <div>
@@ -25,7 +25,7 @@
                     <label for="name">
                         Name
                     </label>
-                    <input type="text" value="{{ Auth::guard('customer')->user()->name }}" class="form-control @error('email') is-invalid @enderror" id="name" name="name" required readonly/>
+                    <input type="text" value="{{ Auth::guard('customer')->user()->name }}" class="form-control @error('email') is-invalid @enderror" readonly/>
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -36,12 +36,7 @@
                     <label for="email">
                         Email
                     </label>
-                    <input type="email" value="{{ Auth::guard('customer')->user()->email }}" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Cupper" required readonly/>
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <input type="email" value="{{ Auth::guard('customer')->user()->email }}" class="form-control @error('email') is-invalid @enderror" name="email"readonly/>
                 </div>
             </div>
 
@@ -51,11 +46,12 @@
                         Set Priority
                     </label>
                     <select class="form-control @error('priority') is-invalid @enderror" id="priority" name="priority" required>
-                        <option value="low" selected>Low</option>
+                        <option value="">Select One</option>
+                        <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
                     </select>
-                    @error('subscription')
+                    @error('priority')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -67,7 +63,8 @@
                         Select Support Team
                     </label>
                     <select class="form-control @error('support_team') is-invalid @enderror" id="support_team" name="support_team" required>
-                        <option value="admin" selected>Admin</option>
+                        <option value="">Select One</option>
+                        <option value="admin">Admin</option>
                         <option value="developer">Developer</option>
                         <option value="accounts">Accounts</option>
                     </select>
@@ -82,14 +79,14 @@
                     <label for="product">
                         Select Your Product (not mendetory)
                     </label>
-                    <select class="form-control @error('product') is-invalid @enderror" id="product" name="product_id" required>
+                    <select class="form-control @error('product_id') is-invalid @enderror" id="product" name="product_id" required>
                         <option value="">Select One</option>
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}">{{ $product->name }} </option>
                         @endforeach
 
                     </select>
-                    @error('subscription')
+                    @error('product_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -102,12 +99,12 @@
                     <label for="conversation">
                         Type your issue
                     </label>
-                    <textarea class="form-control" name="conversation" id="conversation" cols="100" rows="5" placeholder="Typeing..."></textarea>
+                    <textarea class="form-control  @error('message') is-invalid @enderror" name="message" id="conversation" cols="100" rows="5" placeholder="Typeing..."></textarea>
 
-                    @error('conversation')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    @error('message')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
             </div>
@@ -115,11 +112,11 @@
                 <div class="col-md-12 mb-3">
                     <div class="mb-3">
                         <label for="formFile" class="form-label"> Submit screenshot only (not recomended)</label>
-                        <input class="form-control" type="file" id="formFile" name="document_image">
-                      </div>
+                        <input class="form-control" type="file" id="formFile" name="image">
+                    </div>
                 </div>
             </div>
-            
+
             <button class="btn btn-primary btn-lg btn-block" type="submit">
                 Submit Ticket
             </button>

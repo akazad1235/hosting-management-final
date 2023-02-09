@@ -141,6 +141,7 @@ Route::group(['prefix' => 'customer'], function() {
 
         //ticket
         Route::get('/ticket', [CustomerTicket::class, 'ticket'])->name('customer.ticket');
+        Route::post('/generate/ticket', [CustomerTicket::class, 'generateTicket'])->name('customer.generate.ticket');
 
         Route::controller(StripePaymentController::class)->group(function(){
             Route::get('stripe', 'stripe')->name('make.payment');
