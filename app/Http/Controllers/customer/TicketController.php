@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Notifications\TicketNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,7 @@ class TicketController extends Controller
 
         try {
             DB::beginTransaction();
-            $user = Customer::find(Auth::guard('customer')->user()->id);
+            $user = Customer::findOrFail(Auth::guard('customer')->user()->id);
             if($user){
                 $ticket = Ticket::create([
                     'customer_id' => $user->id,
@@ -58,8 +59,8 @@ class TicketController extends Controller
                         $conversation->update([
                             'file' => $imagePath,
                         ]);
-                        DB::commit();
                     }
+                    auth()->user()->notify(new TicketNotification($user));
                     DB::commit();
                 }else{
                     throw new \Exception('Invalid Information, Please Try again');
