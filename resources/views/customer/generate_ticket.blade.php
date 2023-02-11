@@ -108,7 +108,7 @@
                 <div class="col-md-12 mb-3">
                     <div class="mb-3 @error('image') is-invalid @enderror">
                         <label for="formFile" class="form-label"> Submit screenshot only (not recomended)</label>
-                        <input class="form-control" type="file" id="formFile" name="image">
+                        <input class="form-control" type="file" id="formFile" name="image" accept="image/png, image/gif, image/jpeg, image/jpg">
                     </div>
                     @error('image')
                         <div class="text-danger">

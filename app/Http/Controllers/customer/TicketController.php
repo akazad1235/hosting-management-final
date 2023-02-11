@@ -31,7 +31,7 @@ class TicketController extends Controller
             'support_team' => ['required'],
             'priority' => ['required'],
             'message' => ['required'],
-            'image' => ['mimes:jpeg', 'max:2048'],
+            'image' => ['mimes:jpeg,png,jpg,gif', 'max:2048'],
         ])->validate();
 
 
