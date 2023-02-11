@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\ImagesTrait;
 
+
 class TicketController extends Controller
 {
+    use ImagesTrait;
     //
     public function ticket(){
         $products = Product::get();
@@ -23,14 +25,15 @@ class TicketController extends Controller
     }
 
     public function generateTicket(Request $request){
-
+        //return $request->all();
         Validator::make($request->all(), [
-            'user_id' => ['required'],
             'product_id' => ['required'],
-            'support_team' => ['required',],
-            'priority' => ['required',],
-            'conversation' => ['required'],
+            'support_team' => ['required'],
+            'priority' => ['required'],
+            'message' => ['required'],
+            'image' => ['mimes:jpeg', 'max:2048'],
         ])->validate();
+
 
         try {
             DB::beginTransaction();
@@ -61,7 +64,6 @@ class TicketController extends Controller
                 }else{
                     throw new \Exception('Invalid Information, Please Try again');
                 }
-
             }else{
                 throw new \Exception('Your are not authentic user, please contact to admin');
             }

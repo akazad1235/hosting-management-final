@@ -10,11 +10,15 @@ trait ImagesTrait{
         if($path =='' && $file==''){
             throw new \Exception('uploadImage func argument pass file/path');
         }
-    //    $file = $file->file('image');
+      // $file = $file->file('image');
       //  $filename = $file->getClientOriginalName();
+
+        $fileName =  time().'.'.$file->getClientOriginalName();
+       // $request->file('image')->storeAs('images', $fileName);
+
         $fileName = rand(0, 999999999) . '_' . date('Ymdhis').'_' . rand(100, 999999999) . '.' . $file->getClientOriginalExtension();
 
-        $file->storeAs('public/',$fileName);
+        $file->storeAs("{$path}/", $fileName);
 
      //   $img = Image::make($file)->fit(400)->encode();
      //   $fileName = rand(0, 999999999) . '_' . date('Ymdhis').'_' . rand(100, 999999999) . '.' . $file->getClientOriginalExtension();
