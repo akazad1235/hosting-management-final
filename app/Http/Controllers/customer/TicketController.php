@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Conversion;
 use App\Models\Customer;
 use App\Models\Product;
@@ -14,11 +15,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\ImagesTrait;
+use Notification;
 
 
 class TicketController extends Controller
 {
     use ImagesTrait;
+
     //
     public function ticket(){
         $products = Product::get();
@@ -39,6 +42,7 @@ class TicketController extends Controller
         try {
             DB::beginTransaction();
             $user = Customer::findOrFail(Auth::guard('customer')->user()->id);
+
             if($user){
                 $ticket = Ticket::create([
                     'customer_id' => $user->id,
@@ -60,7 +64,10 @@ class TicketController extends Controller
                             'file' => $imagePath,
                         ]);
                     }
-                    auth()->user()->notify(new TicketNotification($user));
+                  //  auth()->user()->notify(new TicketNotification($user));
+
+                    $admin = Admin::limit(10)->get();
+                    Notification::send($admin, new TicketNotification($user));
                     DB::commit();
                 }else{
                     throw new \Exception('Invalid Information, Please Try again');

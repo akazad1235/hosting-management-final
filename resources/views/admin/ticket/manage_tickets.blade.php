@@ -8,6 +8,10 @@
 
       <div class="row justify-content-center">
         <div class="col-md-12 card mt-5">
+            notify-
+            @foreach (auth()->user()->notifications as $notification)
+                <li>{{ $notification->data['name'] }}</li>
+            @endforeach
           <div class="card-header">
             <h3 class="card-title">Manage Tickets</h3>
           </div>
@@ -17,7 +21,7 @@
             <thead>
             <tr>
               <th>#</th>
-              <th>Customer Id</th>
+              <th>Customer Email</th>
               <th>Order Id</th>
               <th>Ticket Code</th>
               <th>Priority</th>
@@ -86,6 +90,7 @@
 
 @push('page-script')
     <script>
+      var a = 1;
         $(function(){
             var table = $('.ticket_datatable').DataTable({
       columnDefs: [{
@@ -99,7 +104,7 @@
           ajax: "{{ route('manage.tickets') }}",
           columns: [
               {data: 'id', name: 'id'},
-              {data: 'customer_id', name: 'customer_id'},
+              {data: 'email', name: 'email'},
               {data: 'order_id', name: 'order_id'},
               {data: 'ticket_code', name: 'ticket_code'},
               {data: 'priority', name: 'priority'},

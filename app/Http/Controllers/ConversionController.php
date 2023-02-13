@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageEvent;
 use App\Models\Conversion;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,11 @@ class ConversionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+       $conversion = Conversion::with('ticket')->where('ticket_id', $id)->first();
+
+       return view('admin.ticket.conversion');
     }
 
     /**
@@ -24,7 +27,9 @@ class ConversionController extends Controller
      */
     public function create()
     {
-        //
+        return 'ok';
+       // event(new MessageEvent($request->userName, $request->message));
+        return response()->json(['code' => 200, 'status' => 'message send success']);
     }
 
     /**
@@ -35,7 +40,9 @@ class ConversionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       // return $request->all();
+        broadcast(new MessageEvent('azad121', 'helo azd'));
+        return response()->json(['code' => 200, 'status' => 'message send success']);
     }
 
     /**

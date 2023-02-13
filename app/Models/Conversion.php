@@ -11,4 +11,8 @@ class Conversion extends Model
 
     protected $guarded = [];
 
+    public function ticket(){
+        return $this->belongsTo(Ticket::class, 'ticket_id', 'id');
+    }
+
 }

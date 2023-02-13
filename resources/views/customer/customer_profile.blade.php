@@ -5,6 +5,9 @@
 @section('content')
 <div class="row justify-content-center">
   <div class="col-md-6">
+    @foreach (auth()->user()->notifications as $notification)
+    <li>{{ $notification->data['name'] }}</li>
+@endforeach
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
         <a href="../../index2.html" class="h1"><b>Edit </b>Customer</a>
@@ -18,7 +21,7 @@
         @elseif (Session::has('success'))
          <span class="text-success">{{Session::get('success')}}</span>
         @endif
-  
+
         <form method="POST" action="{{ route('customer.register') }}">
           @csrf
         <div class="input-group mb-3">
@@ -87,5 +90,5 @@
   </div>
   </div>
 </div>
-   
+
 @endsection

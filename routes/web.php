@@ -18,6 +18,7 @@ use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\TicketController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\ConversionController;
 use App\Http\Controllers\customer\TicketController as CustomerTicket;
 
 /*
@@ -98,6 +99,11 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/ticket/edit/{id}', [TicketController::class, 'editTicket'])->name('edit.ticket');
         Route::post('/delete/ticket/{id}', [TicketController::class, 'deleteTicket'])->name('delete.ticket');
         Route::post('/update/ticket', [TicketController  ::class, 'updateTicket'])->name('update.ticket');
+
+        //conversation
+        Route::get('/conversation/{id}', [ ConversionController::class, 'index'])->name('conversation');
+        Route::get('/send/message', [ ConversionController::class, 'create'])->name('send.message');
+        Route::post('/send-message', [ ConversionController::class, 'store'])->name('submit.message');
 
 
     });
