@@ -10,6 +10,7 @@
     </head>
     <body class="antialiased">
         <p>Chat Application customer listen</p>
+        <input type="text" id="customer_id" value="{{ Auth::guard('customer')->user()->id }}">
         {{-- <input type="text" placeholder="username" name="username" id="username">
         <input type="text" id="user-id" value="5">
         <div id="display-message">

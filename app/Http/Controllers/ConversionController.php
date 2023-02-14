@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AdminMessage;
 use App\Events\Message;
 use App\Models\Conversion;
 use Illuminate\Http\Request;
@@ -12,8 +13,9 @@ class ConversionController extends Controller
     public function index($id)
     {
        $conversion = Conversion::with('ticket')->where('ticket_id', $id)->first();
+       $customerId = $conversion->customer_id;
 
-       return view('admin.ticket.conversion');
+       return view('admin.ticket.conversion', ['customer' => $conversion]);
     }
     public function chatRoom(){
        $admin = Auth::guard('admin')->user();
@@ -22,12 +24,10 @@ class ConversionController extends Controller
     }
 
     public function sendMessage(Request $request){
-       $admin =  Auth::guard('admin')->user();
-       $message = $request->message;
-       $name = $admin->id;
+      // $admin =  Auth::guard('admin')->user();
 
-      //  broadcast(new Message($admin, $message));
+       broadcast(new AdminMessage($request->message, $request->userId));
 
-        return response()->json(['success' => 'message send success']);
+        return response()->json(['success' => 'message send success', 'message'=> $request->message]);
     }
 }

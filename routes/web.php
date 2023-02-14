@@ -49,11 +49,11 @@ Route::get('/event', function () {
     event(new testEvent('this test message to azad 2', 6));
 
 });
-Route::get('/admin-event', function () {
+// Route::get('/admin-event', function () {
 
-    event(new AdminMessage('this test message to azad 2', 50));
+//     event(new AdminMessage('this test message to azad 2', 52));
 
-});
+// });
 Route::get('/customer-listen', function () {
 
     return view('customerSend');
@@ -182,6 +182,7 @@ Route::group(['prefix' => 'customer'], function() {
 
         //conversion
         Route::get('/conversion', [CustomerConversion::class, 'conversion'])->name('customer.conversion');
+        Route::get('/receive-message', [CustomerConversion::class, 'receiveMessage']);
 
         Route::controller(StripePaymentController::class)->group(function(){
             Route::get('stripe', 'stripe')->name('make.payment');

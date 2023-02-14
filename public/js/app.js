@@ -26064,7 +26064,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-// alert('okkkkxxxx');
+alert('okkkkxxxx');
 // const message_el = document.getElementById('display-message');
 // const username_input =document.getElementById('username');
 // const message_input =document.getElementById('username_input');
@@ -26105,7 +26105,29 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 // })
 //var convertId = parseInt(user_id);
 
-window.Echo["private"]('TestApp.' + 6).listen('testEvent', function (e) {
+var submit_message_form = document.getElementById('submit_message_form');
+var message_input = document.getElementById('message_input');
+var admin_id = document.getElementById('admin_id');
+var user_id = document.getElementById('user_id');
+var showChat = document.getElementById('show-chat');
+submit_message_form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  axios({
+    method: 'post',
+    url: '/admin/send-message',
+    data: {
+      message: message_input.value,
+      userId: user_id.value
+    }
+  }).then(function (res) {
+    console.log(res.data);
+    showChat.innerHTML += "\n            <div class=\"bg-light m-3 d-flex flex-row-reverse p-1 rounded\">\n                    <div>\n                        <img class=\"\" style=\"width: 30px\" src=\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png\" alt=\"\">\n                    </div>\n                <div>\n                    <p class=\"user w-75 mb-1\">".concat(res.data.message, "</p>\n                </div>\n\n                </div>\n            ");
+  })["catch"](function (error) {
+    console.log(error);
+  });
+});
+var id = parseInt(admin_id);
+window.Echo["private"]('TestApp.' + id).listen('testEvent', function (e) {
   console.log(e);
   //  message_input.value='';
   //   message_el.innerHTML +='<div class="message"><strong style="color:red">'+e.message +'</strong>'+ e.message+'</div>'
@@ -26158,8 +26180,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laragon\www\chat-application\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laragon\www\chat-application\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! D:\laragon\www\hosting\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laragon\www\hosting\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
