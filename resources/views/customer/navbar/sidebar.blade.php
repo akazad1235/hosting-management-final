@@ -59,16 +59,28 @@
                 <p>My Orders</p>
               </a>
             </li>
+            <li class="nav-item">
+                <a href="{{route('customer.ticket')}}" class="nav-link {{route('customer.ticket')? 'active': null}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Generate Ticket</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('customer.conversion')}}" class="nav-link {{route('customer.conversion')? 'active': null}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Conversion to Support</p>
+                </a>
+              </li>
             </ul>
           </li>
-          
+
         </ul>
 
-         
+
       </nav>
       <!-- /.sidebar-menu -->
     </div>
 
-   
+
     <!-- /.sidebar -->
   </aside>

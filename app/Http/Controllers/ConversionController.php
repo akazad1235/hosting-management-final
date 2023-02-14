@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Events\Message;
+use App\Models\Conversion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ConversionController extends Controller
 {
+    public function index($id)
+    {
+       $conversion = Conversion::with('ticket')->where('ticket_id', $id)->first();
+
+       return view('admin.ticket.conversion');
+    }
     public function chatRoom(){
        $admin = Auth::guard('admin')->user();
         $id = $admin->id;

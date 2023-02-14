@@ -17,6 +17,8 @@ use App\Http\Controllers\Shop\CheckoutController;
 use App\Http\Controllers\Shop\CustomerController;
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\customer\TicketController as CustomerTicket;
+use App\Http\Controllers\customer\ConversionController as CustomerConversion;
 use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
 
@@ -24,6 +26,8 @@ use App\Events\Message;
 use App\Events\testEvent;
 use App\Http\Controllers\ConversionController;
 use Illuminate\Http\Request;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +133,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('/delete/ticket/{id}', [TicketController::class, 'deleteTicket'])->name('delete.ticket');
         Route::post('/update/ticket', [TicketController::class, 'updateTicket'])->name('update.ticket');
 
+        Route::get('/conversation/{id}', [ ConversionController::class, 'index'])->name('conversation');
         Route::post('/send-message', [ConversionController::class, 'sendMessage']);
         Route::get('/chat/room', [ConversionController::class, 'chatRoom']);
 
@@ -170,6 +175,13 @@ Route::group(['prefix' => 'customer'], function() {
         Route::get('/address/edit/{id}', [AddressController::class, 'editAddress'])->name('edit.address');
         Route::post('/delete/address/{id}', [AddressController::class, 'deleteAddress'])->name('delete.address');
         Route::post('/update-address', [AddressController::class, 'updateAddress'])->name('update.address');
+
+        //ticket
+        Route::get('/ticket', [CustomerTicket::class, 'ticket'])->name('customer.ticket');
+        Route::post('/generate/ticket', [CustomerTicket::class, 'generateTicket'])->name('customer.generate.ticket');
+
+        //conversion
+        Route::get('/conversion', [CustomerConversion::class, 'conversion'])->name('customer.conversion');
 
         Route::controller(StripePaymentController::class)->group(function(){
             Route::get('stripe', 'stripe')->name('make.payment');
