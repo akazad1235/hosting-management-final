@@ -19,14 +19,7 @@ class CustomerController extends Controller
     }
 
     public function loginFromCheckout(Request $req){
-        // return $req;
-        $product_id = $req->product_id;
-        $company = $req->company;
-        $country = $req->country;
-        $address = $req->address;
-        $state = $req->state;
-        $city = $req->city;
-        $zip_code = $req->zip;
+        // return  $req;
         $checkThis = [
             'email' => 'required|email',
             'password' => 'required|min:4|max:8'
@@ -35,18 +28,6 @@ class CustomerController extends Controller
         $this->validate($req, $checkThis);  
 
         if(Auth::guard('customer')->attempt(['email' => $req->email, 'password' => $req->password], $req->get('remember'))){
-            $customer_id = auth::guard('customer')->user()->id;
-            $address_id = Address::where('customer_id', $customer_id)->get();
-
-            // $addToCart = new Cart;
-            // $addToCart->customer_id = $customer_id;
-            // $addToCart->product_id = $product_id;
-            // $addToCart->address_id = $address_id;
-            // $addToCart->product_discounted_price = $req->product_discounted_price;
-            // $addToCart->cuppon_discounted_price = $req->cuppon_discounted_price;
-            // $addToCart->total_discounted_price = $req->total_discounted_price;
-            // $addToCart->save();
-
             return redirect()->route('make.payment');
         } else {
             session()->flash('loginError', 'Email/Password is incorrect!');
@@ -104,8 +85,7 @@ class CustomerController extends Controller
             $adAaddress->zip_code = $zip_code;
             $adAaddress->save();
 
-            if($adAaddress){
-                $addToCart = new Cart;
+            $addToCart = new Cart;
             
             $addToCart->customer_id = $customer_id;
             $addToCart->product_id = $product_id;
@@ -116,10 +96,6 @@ class CustomerController extends Controller
             $addToCart->save();
             
             return redirect()->route('make.payment')->with("success", "Success! Registration completed");
-            } else {
-                return redirect()->route('make.payment')->with("error", "Address not inserted");
-            }
-            
         }
         else {
             return back()->with("failed", "Alert! Failed to register");

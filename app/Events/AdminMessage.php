@@ -10,18 +10,21 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TicketProcessed
+class AdminMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $message;
+    public $customerId;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($message, $customerId)
     {
-        //
+        $this->message = $message;
+        $this->customerId = $customerId;
     }
 
     /**
@@ -31,6 +34,6 @@ class TicketProcessed
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel('customer.'.$this->customerId);
     }
 }

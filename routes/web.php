@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\AdminMessage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -18,8 +19,11 @@ use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\TicketController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
+
+use App\Events\Message;
+use App\Events\testEvent;
 use App\Http\Controllers\ConversionController;
-use App\Http\Controllers\customer\TicketController as CustomerTicket;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +39,31 @@ use App\Http\Controllers\customer\TicketController as CustomerTicket;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/event', function () {
+
+    event(new testEvent('this test message to azad 2', 6));
+
+});
+Route::get('/admin-event', function () {
+
+    event(new AdminMessage('this test message to azad 2', 50));
+
+});
+Route::get('/customer-listen', function () {
+
+    return view('customerSend');
+
+});
+Route::get('/listen', function () {
+
+    return view('index');
+
+});
+
+Route::get('/chat/room', [ConversionController::class, 'chatRoom'])->middleware('admin.auth');
+
+
 
 Auth::routes();
 
@@ -98,13 +127,10 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/tickets', [TicketController::class, 'tickets'])->name('manage.tickets');
         Route::get('/ticket/edit/{id}', [TicketController::class, 'editTicket'])->name('edit.ticket');
         Route::post('/delete/ticket/{id}', [TicketController::class, 'deleteTicket'])->name('delete.ticket');
-        Route::post('/update/ticket', [TicketController  ::class, 'updateTicket'])->name('update.ticket');
+        Route::post('/update/ticket', [TicketController::class, 'updateTicket'])->name('update.ticket');
 
-        //conversation
-        Route::get('/conversation/{id}', [ ConversionController::class, 'index'])->name('conversation');
-        Route::get('/send/message', [ ConversionController::class, 'create'])->name('send.message');
-        Route::post('/send-message', [ ConversionController::class, 'store'])->name('submit.message');
-
+        Route::post('/send-message', [ConversionController::class, 'sendMessage']);
+        Route::get('/chat/room', [ConversionController::class, 'chatRoom']);
 
     });
 });
@@ -144,10 +170,6 @@ Route::group(['prefix' => 'customer'], function() {
         Route::get('/address/edit/{id}', [AddressController::class, 'editAddress'])->name('edit.address');
         Route::post('/delete/address/{id}', [AddressController::class, 'deleteAddress'])->name('delete.address');
         Route::post('/update-address', [AddressController::class, 'updateAddress'])->name('update.address');
-
-        //ticket
-        Route::get('/ticket', [CustomerTicket::class, 'ticket'])->name('customer.ticket');
-        Route::post('/generate/ticket', [CustomerTicket::class, 'generateTicket'])->name('customer.generate.ticket');
 
         Route::controller(StripePaymentController::class)->group(function(){
             Route::get('stripe', 'stripe')->name('make.payment');

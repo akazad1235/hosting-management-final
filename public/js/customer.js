@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -26045,74 +26045,6 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/css/app.css":
-/*!*******************************!*\
-  !*** ./resources/css/app.css ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-// alert('okkkkxxxx');
-// const message_el = document.getElementById('display-message');
-// const username_input =document.getElementById('username');
-// const message_input =document.getElementById('username_input');
-// const message_form =document.getElementById('message_form');
-// const user_id =document.getElementById('user-id').value;
-
-// message_form.addEventListener('submit', function(e){
-//     e.preventDefault();
-//     alert('okkkk');
-//     let has_errors = false;
-//     if(username_input.value ==''){
-//         alert('please enter your user name');
-//         has_Errors = true;
-//     }
-//     if(message_input.value ==''){
-//         alert('please enter your message');
-//         has_Errors = true;
-//     }
-//     if(has_errors){
-//         return;
-//     }
-
-//     axios({
-//         method: 'post',
-//         url: '/admin/send-message',
-//         data: {
-//             username: username_input.value,
-//             message: message_input.value,
-//         }
-//     })
-//         .then(res=>{
-//             console.log(res);
-//         })
-//         .catch(function (error) {
-//             console.log(error);
-//         });
-
-// })
-//var convertId = parseInt(user_id);
-
-window.Echo["private"]('TestApp.' + 6).listen('testEvent', function (e) {
-  console.log(e);
-  //  message_input.value='';
-  //   message_el.innerHTML +='<div class="message"><strong style="color:red">'+e.message +'</strong>'+ e.message+'</div>'
-});
-
-/***/ }),
-
 /***/ "./resources/js/bootstrap.js":
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
@@ -26151,15 +26083,30 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
 /***/ }),
 
-/***/ 0:
-/*!***********************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/css/app.css ***!
-  \***********************************************************/
+/***/ "./resources/js/customer.js":
+/*!**********************************!*\
+  !*** ./resources/js/customer.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laragon\www\chat-application\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laragon\www\chat-application\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+window.Echo["private"]('customer.' + 50).listen('AdminMessage', function (e) {
+  console.log(e);
+  //  message_input.value='';
+  //   message_el.innerHTML +='<div class="message"><strong style="color:red">'+e.message +'</strong>'+ e.message+'</div>'
+});
+
+/***/ }),
+
+/***/ 1:
+/*!****************************************!*\
+  !*** multi ./resources/js/customer.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! D:\laragon\www\chat-application\resources\js\customer.js */"./resources/js/customer.js");
 
 
 /***/ })

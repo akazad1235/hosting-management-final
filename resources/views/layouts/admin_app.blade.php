@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title')</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
-  <link rel="stylesheet" href="{{asset('css/message.css')}}">
 
   {{--  --}}
   <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -41,19 +40,16 @@
         </div>
       </aside>
       <!-- /.control-sidebar --> --}}
-
+    
       <!-- Main Footer -->
      @include('admin.footer')
     </div>
     <!-- ./wrapper -->
-
+    
     <!-- REQUIRED SCRIPTS -->
-
+    
     <!-- jQuery -->
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
-
-
-
     <!-- Bootstrap 4 -->
     <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
@@ -87,11 +83,11 @@
     <script src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-
-
+    
+  
     <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
     <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+
     <script>
       function customAlert(type, message){
         var Toast = Swal.mixin({
@@ -127,5 +123,6 @@
         });
         </script> --}}
 
+    
     </body>
     </html>
