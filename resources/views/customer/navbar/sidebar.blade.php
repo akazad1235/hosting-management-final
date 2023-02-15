@@ -71,6 +71,12 @@
                   <p>Conversion to Support</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{route('customer.ticket.list')}}" class="nav-link {{route('customer.ticket.list')? 'active': null}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ticekt List</p>
+                </a>
+              </li>
             </ul>
           </li>
 

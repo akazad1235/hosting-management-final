@@ -177,8 +177,10 @@ Route::group(['prefix' => 'customer'], function() {
         Route::post('/update-address', [AddressController::class, 'updateAddress'])->name('update.address');
 
         //ticket
+        Route::get('/ticket/list', [CustomerTicket::class, 'index'])->name('customer.ticket.list');
         Route::get('/ticket', [CustomerTicket::class, 'ticket'])->name('customer.ticket');
         Route::post('/generate/ticket', [CustomerTicket::class, 'generateTicket'])->name('customer.generate.ticket');
+
 
         //conversion
         Route::get('/conversion', [CustomerConversion::class, 'conversion'])->name('customer.conversion');

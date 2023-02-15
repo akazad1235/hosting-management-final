@@ -10,12 +10,14 @@ use App\Models\Product;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Notifications\TicketNotification;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\ImagesTrait;
 use Notification;
+use Yajra\DataTables\DataTables;
 
 
 class TicketController extends Controller
@@ -23,6 +25,27 @@ class TicketController extends Controller
     use ImagesTrait;
 
     //
+    public function index(Request $req){
+       // $data = DB::table('customers')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->get();
+        $data = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->with('conversion')->get();
+        if ($req->ajax()) {
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('created_at', function($row){
+                     //Carbon::createFromFormat('m/d/Y', $row->created_at);
+                    return date('d-m-Y | H:i A', strtotime($row->created_at));
+
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="'. route('conversation', $row->conversion->id).'" data-toggle="tooltip"  data-id="'.$row->conversion->id.'" data-original-title="Edit" class="edit btn  btn-danger btn-sm manageOrder">Open Conversion</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('customer.ticket_list',compact('data'));
+    }
     public function ticket(){
         $products = Product::get();
         return view('customer.generate_ticket', ['products' => $products]);

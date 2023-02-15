@@ -9,4 +9,8 @@ class Ticket extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function conversion(){
+        return $this->hasOne(Conversion::class);
+    }
 }

@@ -69,7 +69,6 @@ submit_message_form.addEventListener('submit', function(e){
                 <div>
                     <p class="user w-75 mb-1">${res.data.message}</p>
                 </div>
-
                 </div>
             `
         })
