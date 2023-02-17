@@ -14,4 +14,11 @@ class Conversion extends Model
     public function ticket(){
         return $this->belongsTo(Ticket::class, 'ticket_id', 'id');
     }
+
+    /*
+     * user info get
+     */
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
 }

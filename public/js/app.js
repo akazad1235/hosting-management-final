@@ -26107,9 +26107,10 @@ alert('okkkkxxxx');
 
 var submit_message_form = document.getElementById('submit_message_form');
 var message_input = document.getElementById('message_input');
-var admin_id = document.getElementById('admin_id');
+var admin_id = document.getElementById('admin_id').value;
 var user_id = document.getElementById('user_id');
 var showChat = document.getElementById('show-chat');
+console.log(admin_id);
 submit_message_form.addEventListener('submit', function (e) {
   e.preventDefault();
   axios({
@@ -26121,7 +26122,8 @@ submit_message_form.addEventListener('submit', function (e) {
     }
   }).then(function (res) {
     console.log(res.data);
-    showChat.innerHTML += "\n            <div class=\"bg-light m-3 d-flex flex-row-reverse p-1 rounded\">\n                    <div>\n                        <img class=\"\" style=\"width: 30px\" src=\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png\" alt=\"\">\n                    </div>\n                <div>\n                    <p class=\"user w-75 mb-1\">".concat(res.data.message, "</p>\n                </div>\n\n                </div>\n            ");
+    message_input.value = '';
+    showChat.innerHTML += "\n            <div class=\"bg-light m-3 d-flex flex-row-reverse p-1 rounded\">\n                    <div>\n                        <img class=\"\" style=\"width: 30px\" src=\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png\" alt=\"\">\n                    </div>\n                <div>\n                    <p class=\"user w-75 mb-1\">".concat(res.data.message, "</p>\n                </div>\n                </div>\n            ");
   })["catch"](function (error) {
     console.log(error);
   });
@@ -26129,8 +26131,7 @@ submit_message_form.addEventListener('submit', function (e) {
 var id = parseInt(admin_id);
 window.Echo["private"]('TestApp.' + id).listen('testEvent', function (e) {
   console.log(e);
-  //  message_input.value='';
-  //   message_el.innerHTML +='<div class="message"><strong style="color:red">'+e.message +'</strong>'+ e.message+'</div>'
+  showChat.innerHTML += "\n                <div class=\"bg-secondary m-3 d-flex p-1 rounded\">\n                        <div>\n                            <img class=\"\" style=\"width: 30px\" src=\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png\" alt=\"\">\n                        </div>\n                    <div>\n                        <p class=\"user w-75 mb-1\">".concat(e.message, "</p>\n                    </div>\n\n                    </div>\n                ");
 });
 
 /***/ }),

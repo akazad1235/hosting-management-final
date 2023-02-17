@@ -66,7 +66,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('customer.conversion')}}" class="nav-link {{route('customer.conversion')? 'active': null}}">
+                <a href="" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Conversion to Support</p>
                 </a>

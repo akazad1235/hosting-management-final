@@ -9,10 +9,11 @@
 
 
             </div>
-            <input type="text" id="admin_id" value=" ">
-            <form id="submit-chat">
+            <input type="text" id="admin_id" hidden value="{{$conversion->admin_id}}">
+            <input type="text" id="customer_id" hidden value="{{ Auth::guard('customer')->user()->id }}">
+            <form id="submit_message_form">
                 <div class="d-flex w-100">
-                    <input type="text" class="w-100" name="message" id="message" placeholder="please write your text">
+                    <input type="text" class="w-100" name="message" id="message_input" placeholder="please write your text">
                     <button type="submit">Send</button>
                 </div>
             </form>
@@ -23,7 +24,7 @@
 </div>
 
 @push('page-script')
-    <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{asset('js/customer.js')}}"></script>
 
 @endpush
 

@@ -15,6 +15,10 @@ class ConversionController extends Controller
        $conversion = Conversion::with('ticket')->where('ticket_id', $id)->first();
        $customerId = $conversion->customer_id;
 
+       $conversion->update([
+           'admin_id' => Auth::guard('admin')->user()->id
+       ]);
+
        return view('admin.ticket.conversion', ['customer' => $conversion]);
     }
     public function chatRoom(){

@@ -21,7 +21,7 @@ class CreateConversionsTable extends Migration
             $table->longText('message')->nullable();
             $table->string('file')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->foreign('admin_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('admin_id')->references('id')->on('admins')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
             $table->timestamps();
         });
@@ -34,6 +34,9 @@ class CreateConversionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conversions');
+        Schema::create('conversions', function (Blueprint $table) {
+            $table->dropForeign('admin_id')->change();
+        });
+        ;
     }
 }

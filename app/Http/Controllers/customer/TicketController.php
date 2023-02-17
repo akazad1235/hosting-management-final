@@ -37,8 +37,13 @@ class TicketController extends Controller
 
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href="'. route('conversation', $row->conversion->id).'" data-toggle="tooltip"  data-id="'.$row->conversion->id.'" data-original-title="Edit" class="edit btn  btn-danger btn-sm manageOrder">Open Conversion</a>';
+                    $btn = '<a href="'.route('customer.conversion', $row->conversion->id).'" data-toggle="tooltip"  data-id="'.$row->conversion->id.'" data-original-title="Edit" class="edit btn  btn-danger btn-sm manageOrder">Open Conversion</a>';
+                    if($row->conversion->admin_id != null){
+                       return '<a href="'.route('customer.conversion', $row->conversion->id).'" class="edit btn  btn-danger btn-sm manageOrder">Open Conversion</a>';
 
+                    }else{
+                       return ' <button class="edit btn  btn-danger btn-sm manageOrder" disabled>Not Available </button>';
+                    }
                     return $btn;
                 })
                 ->rawColumns(['action'])

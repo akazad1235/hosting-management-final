@@ -183,8 +183,10 @@ Route::group(['prefix' => 'customer'], function() {
 
 
         //conversion
-        Route::get('/conversion', [CustomerConversion::class, 'conversion'])->name('customer.conversion');
+        Route::get('/conversion/{id}', [CustomerConversion::class, 'conversionOpen'])->name('customer.conversion');
         Route::get('/receive-message', [CustomerConversion::class, 'receiveMessage']);
+        Route::post('/send-message', [CustomerConversion::class, 'sendMessage']);
+
 
         Route::controller(StripePaymentController::class)->group(function(){
             Route::get('stripe', 'stripe')->name('make.payment');
