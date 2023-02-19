@@ -13,4 +13,7 @@ class Ticket extends Model
     public function conversion(){
         return $this->hasOne(Conversion::class);
     }
+    public function customer(){
+        return $this->belongsTo(Customer::class);
+    }
 }

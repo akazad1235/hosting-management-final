@@ -29,9 +29,11 @@ Broadcast::channel('TestApp.{userId}', function ($admin, $userId) {
 });
 
 Broadcast::channel('customer.{adminId}', function ($customer, $customerId) {
-
     return  $customer->id == $customerId;
-
 });
+Broadcast::channel('AdminNotifications', function ($admin) {
+    return true;
+});
+
 
 

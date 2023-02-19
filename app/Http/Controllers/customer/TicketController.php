@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\customer;
 
+use App\Events\CustomerTicket;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Conversion;
@@ -9,7 +10,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Ticket;
 use App\Models\User;
-use App\Notifications\TicketNotification;
+use App\Notifications\AdminFollowNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,9 +94,15 @@ class TicketController extends Controller
                         ]);
                     }
                   //  auth()->user()->notify(new TicketNotification($user));
+                    //notification to all admin user
+                    $user['conversion_id'] = $conversation->id;
 
-                    // $admin = Admin::limit(10)->get();
-                    // Notification::send($admin, new TicketNotification($user));
+                     $admin = Admin::limit(10)->get();
+                    // Notification::send($admin, new AdminFollowNotification($user));
+
+                    $nowDate = date('d-m-y h:i:s');
+                    $convertDate =  Carbon::createFromFormat('d-m-y h:i:s', $nowDate)->diffForHumans();
+                     event(new CustomerTicket($user->name, $user->email, $ticket->id, $convertDate));
                     DB::commit();
                 }else{
                     throw new \Exception('Invalid Information, Please Try again');

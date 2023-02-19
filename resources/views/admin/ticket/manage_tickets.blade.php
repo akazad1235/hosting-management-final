@@ -9,9 +9,10 @@
       <div class="row justify-content-center">
         <div class="col-md-12 card mt-5">
             notify-
-            {{-- @foreach (auth()->user()->notifications as $notification)
+            @foreach (auth()->user()->notifications as $notification)
                 <li>{{ $notification->data['name'] }}</li>
-            @endforeach --}}
+                <li>{{ $notification->data['email'] }}</li>
+            @endforeach
           <div class="card-header">
             <h3 class="card-title">Manage Tickets</h3>
           </div>
@@ -19,15 +20,15 @@
         <div class="card-body">
           <table id="example1" class="table table-bordered table-striped ticket_datatable">
             <thead>
-            <tr>
-              <th>#</th>
-              <th>Customer Email</th>
-              <th>Order Id</th>
-              <th>Ticket Code</th>
-              <th>Priority</th>
-              <th>Status</th>
-              <th>Conversation</th>
-            </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Customer Email</th>
+                    <th>Order Id</th>
+                    <th>Ticket Code</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Conversation</th>
+                </tr>
             </thead>
             <tbody>
 

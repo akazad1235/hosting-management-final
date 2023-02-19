@@ -127,15 +127,20 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('/delete/order/{id}', [OrderController::class, 'deleteOrder'])->name('delete.order');
         Route::post('/update/order', [OrderController  ::class, 'updateOrder'])->name('update.order');
 
-        // maange ticket route
+        //manage ticket route
         Route::get('/tickets', [TicketController::class, 'tickets'])->name('manage.tickets');
         Route::get('/ticket/edit/{id}', [TicketController::class, 'editTicket'])->name('edit.ticket');
         Route::post('/delete/ticket/{id}', [TicketController::class, 'deleteTicket'])->name('delete.ticket');
         Route::post('/update/ticket', [TicketController::class, 'updateTicket'])->name('update.ticket');
+        Route::get('/ticket/read/notification/{uid}', [TicketController::class, 'readAsNotification'])->name('ticket.readAs.notification');
 
+        //conversion
         Route::get('/conversation/{id}', [ ConversionController::class, 'index'])->name('conversation');
         Route::post('/send-message', [ConversionController::class, 'sendMessage']);
         Route::get('/chat/room', [ConversionController::class, 'chatRoom']);
+
+        //notification
+
 
     });
 });
