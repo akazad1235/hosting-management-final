@@ -77,7 +77,7 @@ class TicketController extends Controller
                     'customer_id' => $user->id,
                     'order_id' => 1,
                     'support_team' => $request->support_team,
-                    'ticket_code' => 327923,
+                    'ticket_code' => random_int(100000, 999999),
                     'priority' => $request->priority,
                 ]);
                 if($ticket){
@@ -85,6 +85,7 @@ class TicketController extends Controller
                         'customer_id' => $ticket->customer_id,
                         'ticket_id' => $ticket->id,
                         'message' => $request->message,
+                        'type' => 'customer',
                     ]);
                     if(!empty($conversation) && $request->hasFile('image')){
                        // return  'dsfsfsd';

@@ -30,8 +30,8 @@
     <script>
         // let chatHistory = document.getElementById("getshow-chat");
         // chatHistory.scrollTop = chatHistory.scrollHeight;
-        var objDiv = document.getElementById("show-chat");
-objDiv.scrollTop = objDiv.scrollHeight;
+//         var objDiv = document.getElementById("show-chat");
+// objDiv.scrollTop = objDiv.scrollHeight;
     </script>
 @endpush
 

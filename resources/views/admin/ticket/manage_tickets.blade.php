@@ -8,11 +8,11 @@
 
       <div class="row justify-content-center">
         <div class="col-md-12 card mt-5">
-            notify-
+            {{-- notify-
             @foreach (auth()->user()->notifications as $notification)
                 <li>{{ $notification->data['name'] }}</li>
                 <li>{{ $notification->data['email'] }}</li>
-            @endforeach
+            @endforeach --}}
           <div class="card-header">
             <h3 class="card-title">Manage Tickets</h3>
           </div>

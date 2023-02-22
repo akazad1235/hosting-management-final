@@ -27,7 +27,8 @@ class AddNotificationsToTicketsTable extends Migration
     public function down()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            //
+            $table->integer('supported_by')->change();
+            $table->timestamp('read_at')->change();
         });
     }
 }

@@ -28,6 +28,7 @@ require('./bootstrap');
 
 const submit_message_form =document.getElementById('submit_message_form');
 const message_input =document.getElementById('message_input');
+const ticket_id =document.getElementById('ticket_id');
 const admin_id =document.getElementById('admin_id');
 
 let showChat = document.getElementById('show-chat');
@@ -41,6 +42,7 @@ submit_message_form.addEventListener('submit', function(e){
         data: {
             message: message_input.value,
             adminId: admin_id.value,
+            ticketId: ticket_id.value,
         }
     })
         .then(res=>{
@@ -52,7 +54,7 @@ submit_message_form.addEventListener('submit', function(e){
                         <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
                     </div>
                 <div>
-                    <p class="user w-75 mb-1">${res.data.message}</p>
+                    <p class="user mb-1">${res.data.message}</p>
                 </div>
                 </div>
             `
@@ -81,7 +83,7 @@ submit_message_form.addEventListener('submit', function(e){
                             <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
                         </div>
                     <div>
-                        <p class="user w-75 mb-1">${e.message}</p>
+                        <p class="user mb-1">${e.message}</p>
                     </div>
 
                     </div>

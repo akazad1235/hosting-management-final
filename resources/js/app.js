@@ -1,5 +1,5 @@
 require('./bootstrap');
- alert('okkkkxxxx');
+ alert('okkkk admin');
 // const message_el = document.getElementById('display-message');
 // const username_input =document.getElementById('username');
 // const message_input =document.getElementById('username_input');
@@ -69,7 +69,7 @@ submit_message_form.addEventListener('submit', function(e){
                         <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
                     </div>
                 <div>
-                    <p class="user w-75 mb-1">${res.data.message}</p>
+                    <p class="user mb-1">${res.data.message}</p>
                 </div>
                 </div>
             `
@@ -90,7 +90,7 @@ window.Echo.private('TestApp.'+id)
                             <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
                         </div>
                     <div>
-                        <p class="user w-75 mb-1">${e.message}</p>
+                        <p class="user mb-1">${e.message}</p>
                     </div>
 
                     </div>
