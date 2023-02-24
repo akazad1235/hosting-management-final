@@ -8,22 +8,24 @@
             <div class="chat-box" id="show-chat" style="overflow-y: scroll; height:400px;">
                 @foreach ($conversions as $item)
                     @if($item->type === 'admin')
+                    <p class="text-center" style="margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px">{{  date('d-m-Y | H:i A', strtotime($item->created_at)) }}</p>
                     <div class="bg-secondary m-3 d-flex p-1 rounded">
                         <div>
                             <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
                         </div>
                     <div>
-                        <p class="user mb-1">{{ $item->type }}</p>
+                        <p class="user mb-1">{{ $item->message }}</p>
                     </div>
                     </div>
                     @else
+                    <p class="text-center" style="margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px">{{  date('d-m-Y | H:i A', strtotime($item->created_at)) }}</p>
                     <div class="bg-light m-3 d-flex flex-row-reverse p-1 rounded">
                         <div>
                             <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
                         </div>
-                    <div>
-                        <p class="user mb-1">{{ $item->type }}</p>
-                    </div>
+                        <div>
+                            <p class="user mb-1">{{ $item->message }}</p>
+                        </div>
                     </div>
                     @endif
 

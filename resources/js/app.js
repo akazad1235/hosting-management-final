@@ -44,7 +44,7 @@ require('./bootstrap');
 const submit_message_form =document.getElementById('submit_message_form');
 const message_input =document.getElementById('message_input');
 const admin_id =document.getElementById('admin_id').value;
-const user_id =document.getElementById('user_id');
+const ticket_id =document.getElementById('ticket_id');
 let showChat = document.getElementById('show-chat');
 
 console.log(admin_id);
@@ -58,6 +58,7 @@ submit_message_form.addEventListener('submit', function(e){
         data: {
             message: message_input.value,
             userId: user_id.value,
+            ticketId: ticket_id.value,
         }
     })
         .then(res=>{

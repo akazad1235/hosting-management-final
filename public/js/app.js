@@ -26108,7 +26108,7 @@ alert('okkkk admin');
 var submit_message_form = document.getElementById('submit_message_form');
 var message_input = document.getElementById('message_input');
 var admin_id = document.getElementById('admin_id').value;
-var user_id = document.getElementById('user_id');
+var ticket_id = document.getElementById('ticket_id');
 var showChat = document.getElementById('show-chat');
 console.log(admin_id);
 submit_message_form.addEventListener('submit', function (e) {
@@ -26118,7 +26118,8 @@ submit_message_form.addEventListener('submit', function (e) {
     url: '/admin/send-message',
     data: {
       message: message_input.value,
-      userId: user_id.value
+      userId: user_id.value,
+      ticketId: ticket_id.value
     }
   }).then(function (res) {
     console.log(res.data);

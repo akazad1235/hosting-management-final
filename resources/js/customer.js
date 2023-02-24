@@ -49,6 +49,7 @@ submit_message_form.addEventListener('submit', function(e){
             console.log(res.data);
             message_input.value ='';
             showChat.innerHTML +=`
+            <p class="text-center" style="margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px">${res.data.dateTime}</p>
             <div class="bg-light m-3 d-flex flex-row-reverse p-1 rounded">
                     <div>
                         <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
@@ -78,6 +79,7 @@ submit_message_form.addEventListener('submit', function(e){
         //   message_el.innerHTML +='<div class="message"><strong style="color:red">'+e.message +'</strong>'+ e.message+'</div>'
            // if(e.customer_id == id){
                 showChat.innerHTML +=`
+                <p class="text-center" style="margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px">${e.dateTime}</p>
                 <div class="bg-secondary m-3 d-flex p-1 rounded">
                         <div>
                             <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">

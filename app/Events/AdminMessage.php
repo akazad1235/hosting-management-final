@@ -16,15 +16,17 @@ class AdminMessage implements ShouldBroadcast
 
     public $message;
     public $customerId;
+    public $dateTime;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message, $customerId)
+    public function __construct($message, $customerId, $dateTime)
     {
         $this->message = $message;
         $this->customerId = $customerId;
+        $this->dateTime = $dateTime;
     }
 
     /**

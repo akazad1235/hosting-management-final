@@ -8,9 +8,32 @@
                 <div class="chat-box" id="show-chat" style="width:100%;
                 height:400px;
                 overflow:auto;">
+                   @foreach ($conversions as $item)
+                   @if($item->type === 'customer')
+                   <div class="bg-secondary m-3 d-flex p-1 rounded">
+                       <div>
+                           <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
+                       </div>
+                   <div>
+                       <p class="user mb-1">{{ $item->message }}</p>
+                   </div>
+                   </div>
+                   @else
+                   <div class="bg-light m-3 d-flex flex-row-reverse p-1 rounded">
+                       <div>
+                           <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
+                       </div>
+                   <div>
+                       <p class="user mb-1">{{ $item->message }}</p>
+                   </div>
+                   </div>
+                   @endif
+
+               @endforeach
                 </div>
             <input type="text" id="admin_id" hidden value="{{ Auth::guard('admin')->user()->id }}">
             <input type="text" id="user_id" hidden value="{{$customer->customer_id}}">
+            <input type="text" id="ticket_id" hidden value="{{@$customer->ticket->id}}">
 
             <form id="submit_message_form">
                 <div class="d-flex w-100">

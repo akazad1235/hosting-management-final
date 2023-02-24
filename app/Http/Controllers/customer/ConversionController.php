@@ -24,18 +24,22 @@ class ConversionController extends Controller
 
         return view('customer.conversion');
     }
+    /*
+     * customer message send to admin
+     */
     public function sendMessage(Request $request){
 
-        broadcast(new testEvent($request->message, $request->adminId));
+        broadcast(new testEvent($request->message, $request->adminId)); //admin receive by event
 
-        Conversion::create([
+        $conversion = Conversion::create([
             'message'=> $request->message,
             'ticket_id'=> $request->ticketId,
             'type'=> 'customer',
 
         ]);
+        $dateTime = date('d-m-Y | H:i A ', strtotime($conversion->created_at));
 
-        return response()->json(['success' => 'message send success', 'message'=> $request->message]);
+        return response()->json(['success' => 'message send success', 'message'=> $request->message, 'dateTime' => $dateTime]);
     }
 
 }

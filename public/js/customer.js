@@ -26134,7 +26134,7 @@ submit_message_form.addEventListener('submit', function (e) {
   }).then(function (res) {
     console.log(res.data);
     message_input.value = '';
-    showChat.innerHTML += "\n            <div class=\"bg-light m-3 d-flex flex-row-reverse p-1 rounded\">\n                    <div>\n                        <img class=\"\" style=\"width: 30px\" src=\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png\" alt=\"\">\n                    </div>\n                <div>\n                    <p class=\"user mb-1\">".concat(res.data.message, "</p>\n                </div>\n                </div>\n            ");
+    showChat.innerHTML += "\n            <p class=\"text-center\" style=\"margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px\">".concat(res.data.dateTime, "</p>\n            <div class=\"bg-light m-3 d-flex flex-row-reverse p-1 rounded\">\n                    <div>\n                        <img class=\"\" style=\"width: 30px\" src=\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png\" alt=\"\">\n                    </div>\n                <div>\n                    <p class=\"user mb-1\">").concat(res.data.message, "</p>\n                </div>\n                </div>\n            ");
   })["catch"](function (error) {
     console.log(error);
   });
@@ -26148,7 +26148,7 @@ window.Echo["private"]('customer.' + id).listen('AdminMessage', function (e) {
   //  message_input.value='';
   //   message_el.innerHTML +='<div class="message"><strong style="color:red">'+e.message +'</strong>'+ e.message+'</div>'
   // if(e.customer_id == id){
-  showChat.innerHTML += "\n                <div class=\"bg-secondary m-3 d-flex p-1 rounded\">\n                        <div>\n                            <img class=\"\" style=\"width: 30px\" src=\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png\" alt=\"\">\n                        </div>\n                    <div>\n                        <p class=\"user mb-1\">".concat(e.message, "</p>\n                    </div>\n\n                    </div>\n                ");
+  showChat.innerHTML += "\n                <p class=\"text-center\" style=\"margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px\">".concat(e.dateTime, "</p>\n                <div class=\"bg-secondary m-3 d-flex p-1 rounded\">\n                        <div>\n                            <img class=\"\" style=\"width: 30px\" src=\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png\" alt=\"\">\n                        </div>\n                    <div>\n                        <p class=\"user mb-1\">").concat(e.message, "</p>\n                    </div>\n\n                    </div>\n                ");
   // }
 });
 
