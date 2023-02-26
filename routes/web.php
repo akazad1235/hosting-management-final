@@ -25,6 +25,10 @@ use Illuminate\Support\Facades\Artisan;
 use App\Events\Message;
 use App\Events\testEvent;
 use App\Http\Controllers\ConversionController;
+use App\Http\Controllers\customer\CustomerOrderController;
+use App\Http\Controllers\customer\CustomerProductsController;
+use App\Http\Controllers\Payment\PaypalColtroller;
+use App\Http\Controllers\Payment\VerifyPayment;
 use Illuminate\Http\Request;
 
 
@@ -181,6 +185,18 @@ Route::group(['prefix' => 'customer'], function() {
         Route::post('/delete/address/{id}', [AddressController::class, 'deleteAddress'])->name('delete.address');
         Route::post('/update-address', [AddressController::class, 'updateAddress'])->name('update.address');
 
+        // order
+        Route::get('/customer-order', [CustomerOrderController::class, 'CustomerOrder'])->name('customer.order');
+
+        // manage customer product
+        Route::get('/customer-prodcuts', [CustomerProductsController::class, 'CustomerProducts'])->name('customer.products');
+        Route::get('/service-details-info', [CustomerProductsController::class, 'ServiceInfo'])->name('service.detailsinfo');
+
+        
+        // Route::get('/category/edit/{id}', [CategoryController::class, 'editCategory'])->name('edit.category');
+        // Route::post('/delete/category/{id}', [CategoryController::class, 'deleteCategory'])->name('delete.category');
+        // Route::post('/update-category', [CategoryController  ::class, 'updateCategory'])->name('update.category');
+
         //ticket
         Route::get('/ticket/list', [CustomerTicket::class, 'index'])->name('customer.ticket.list');
         Route::get('/ticket', [CustomerTicket::class, 'ticket'])->name('customer.ticket');
@@ -192,6 +208,8 @@ Route::group(['prefix' => 'customer'], function() {
         Route::get('/receive-message', [CustomerConversion::class, 'receiveMessage']);
         Route::post('/send-message', [CustomerConversion::class, 'sendMessage']);
 
+        Route::get('/paypal-payment', [PaypalColtroller::class, 'paypalPayment'])->name('paypal.payment');
+        Route::get('/veriy-payment/{cartId}/{payment_type}', [VerifyPayment::class, 'vefityPayment'])->name('verify.payment');
 
         Route::controller(StripePaymentController::class)->group(function(){
             Route::get('stripe', 'stripe')->name('make.payment');

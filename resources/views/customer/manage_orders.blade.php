@@ -1,12 +1,15 @@
-@extends('layouts.customer_app')
+@extends('layouts.admin_app')
 
-@section('title', 'My Orders')
+@section('title', 'Manage Categories')
 @section('content')
 <!-- /.card -->
 
 <div class="row justify-content-center">
   <div class="col-md-12">
-    
+    <div class="card-header">
+      <h3 class="card-title">Manage Categories</h3> <br>
+      <a class="btn btn-dark" href="javascript:void(0)" id="createNewUser">Add New Category</a>
+    </div>
     
     <!-- /.card-header -->
     <div class="card-body">
@@ -14,18 +17,19 @@
         <thead>
         <tr>
           <th>#</th>
-          <th>Invoice Id</th>
-          <th>Product Name</th>
-          <th>Price</th>
-          <th>Subscription/Product</th>
+          <th>Invoice</th>
+          <th>User</th>
+          <th>Total</th>
+          <th>Payment</th>
+          <th>Subscription</th>
           <th>Order Status</th>
-          <th>Payment Status</th>
-          <th>View Invoice</th>
+          <th>Manage Order</th>
         </tr>
         </thead>
         <tbody>
         </tbody>
-
+        
+        
       </table>
     </div>
   </div>
@@ -34,7 +38,7 @@
 
 
 {{-- modal --}}
-{{-- <div class="modal fade" id="ajaxModelexa" aria-hidden="true">
+<div class="modal fade" id="ajaxModelexa" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
@@ -74,7 +78,7 @@
           </div>
       </div>
   </div>
-</div> --}}
+</div>
 <!-- /.card -->
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> --}}
 @push('page-script')
@@ -86,18 +90,20 @@
     "serverSide":true,
     "responsive": true,
     "dom":'lBfrtip',
-          ajax: "{{ route('customer.order') }}",
+          ajax: "{{ route('product.orders') }}",
           columns: [
               {data: 'id', name: 'id'},
               {data: 'invoice', name: 'invoice'},
-              {data: 'product_name', name: 'product_name'},
+              {data: 'user_name', name: 'user_name'},
               {data: 'total', name: 'total'},
-              {data: 'subscription_month', name: 'subscription_month'},
-              {data: 'status', name: 'status'},
               {data: 'payment_status', name: 'payment_status'},
+              {data: 'subs_type', name: 'subs_type'},
+              {data: 'order_status', name: 'order_status'},
               {data: 'action', name: 'action', orderable: false, searchable: false},
           ]
       });
+
+
 
 });
 

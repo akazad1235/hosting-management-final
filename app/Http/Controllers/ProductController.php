@@ -56,6 +56,7 @@ class ProductController extends Controller
         $category_id = $req->category_id;
         $discount_id = $req->discount_id;
         $description = $req->description;
+        $purchase_type = $req->purchase_type;
         $image = $req->image;
         $price = $req->price;
 
@@ -74,6 +75,7 @@ class ProductController extends Controller
             $Product->discount_id = $discount_id;
             $Product->price = $price;
             $Product->description = $description;
+            $Product->purchase_type = $purchase_type;
             // $Product->image = $image;
             $Product->save();
             return response()->json(['success'=>'Product updated successfully.']);
@@ -92,6 +94,7 @@ class ProductController extends Controller
             $Product->discount_id = $discount_id;
             $Product->price = $price;
             $Product->description = $description;
+            $purchase_type = $req->purchase_type;
             // $Product->image = $image;
             $Product->save();
             return response()->json(['success'=>'Product created successfully.']);
