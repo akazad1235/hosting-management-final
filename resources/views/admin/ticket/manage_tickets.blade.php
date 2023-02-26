@@ -23,8 +23,8 @@
                 <tr>
                     <th>#</th>
                     <th>Customer Email</th>
-                    <th>Order Id</th>
-                    <th>Ticket Code</th>
+                    <th>Product Name</th>
+                    <th>Ticket No</th>
                     <th>Priority</th>
                     <th>Status</th>
                     <th>Conversation</th>
@@ -101,6 +101,7 @@
     "processing":true,
     "serverSide":true,
     "responsive": true,
+    "order": [[ 3, "desc" ]],
    //    "dom":'lBfrtip',
           ajax: "{{ route('manage.tickets') }}",
           columns: [

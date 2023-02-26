@@ -17,7 +17,7 @@ class TicketController extends Controller
     public function tickets(Request $req){
      // return count( readAsTickets());
 
-        $data = DB::table('tickets')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->get();
+        $data = DB::table('tickets')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->orderBy('id', 'desc')->get();
         if ($req->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()

@@ -1,11 +1,11 @@
-@extends('layouts.shop_app')
+@extends('layouts.customer_app')
 
 @section('title', 'Cehckout')
 
 @section('content')
 
     <div class="row justify-content-center">
-        <div class="col-md-8 card p-3 my-5">
+        <div class="col-md-9 card p-3 my-5">
             {{-- Registration --}}
     <div class="mt-2" id="showcustomerRegistration">
         <form class="needs-validation" method="POST" action="{{ route('customer.generate.ticket') }}" enctype="multipart/form-data">
@@ -116,7 +116,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary btn-lg btn-block" type="submit">
+            <button class="btn btn-secondary btn-lg btn-block" type="submit">
                 Submit Ticket
             </button>
         </form>

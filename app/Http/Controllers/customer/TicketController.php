@@ -28,7 +28,7 @@ class TicketController extends Controller
     //
     public function index(Request $req){
        // $data = DB::table('customers')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->get();
-        $data = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->with('conversion')->get();
+        $data = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->with('conversion')->orderBy('id', 'asc')->get();
         if ($req->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -105,6 +105,7 @@ class TicketController extends Controller
                     $convertDate =  Carbon::createFromFormat('d-m-y h:i:s', $nowDate)->diffForHumans();
                      event(new CustomerTicket($user->name, $user->email, $ticket->id, $convertDate));
                     DB::commit();
+                    return redirect()->route('customer.ticket.list')->with('message','Data added Successfully');
                 }else{
                     throw new \Exception('Invalid Information, Please Try again');
                 }
@@ -117,6 +118,6 @@ class TicketController extends Controller
             return $ex->getMessage();
         }
 
-        return 'successfully done';
+
     }
 }

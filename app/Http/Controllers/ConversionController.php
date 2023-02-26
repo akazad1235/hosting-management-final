@@ -26,6 +26,7 @@ class ConversionController extends Controller
       $ticket = Ticket::find($conversion->ticket_id);
       $ticket->update([
           'read_at' => date('d-m-y h:i:s'),
+          'status' => 'connected',
           'supported_by' => Auth::guard('admin')->user()->id
       ]);
 
