@@ -99,16 +99,30 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge" id="ticket-notification-count">@php  countTicket() @endphp</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
+
+          {{-- @foreach (Auth::guard('admin')->user()->notifications as $notification)
+                <div class="dropdown-divider"></div>
+                <div id="ticket-notifications">
+                    <a href="{{route('ticket.readAs.notification', $notification->id)}}" class="dropdown-item">
+                        <i class="fas fa-envelope mr-2"></i> {{count(Auth::guard('admin')->user()->notifications)}} {{ $notification->data['name'] }}
+                        <span class="float-right text-muted text-sm">3 mins</span>
+                      </a>
+                </div>
+            @endforeach --}}
+            @foreach (readAsTickets() as $unreadTicket)
+                <div class="dropdown-divider"></div>
+                <div id="ticket-notifications">
+                    <a href="{{route('conversation', $unreadTicket->id)}}" class="dropdown-item">
+                        <i class="fas fa-envelope mr-2"></i>{{ $unreadTicket->customer->name }}
+                        <span class="float-right text-muted text-sm">{{ $unreadTicket->created_at->diffForHumans() }}</span>
+                    </a>
+                </div>
+            @endforeach
+          {{-- <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             <i class="fas fa-users mr-2"></i> 8 user requests
             <span class="float-right text-muted text-sm">12 hours</span>
@@ -117,7 +131,7 @@
           <a href="#" class="dropdown-item">
             <i class="fas fa-file mr-2"></i> 3 new reports
             <span class="float-right text-muted text-sm">2 days</span>
-          </a>
+          </a> --}}
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
@@ -139,8 +153,8 @@
             @csrf
         </form>
       </li>
-      
-      
+
+
       {{-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>

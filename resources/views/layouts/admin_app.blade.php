@@ -40,14 +40,14 @@
         </div>
       </aside>
       <!-- /.control-sidebar --> --}}
-    
+
       <!-- Main Footer -->
      @include('admin.footer')
     </div>
     <!-- ./wrapper -->
-    
+
     <!-- REQUIRED SCRIPTS -->
-    
+
     <!-- jQuery -->
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->
@@ -83,10 +83,13 @@
     <script src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-    
-  
+
+
     <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
     <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+
+    <script src="{{asset('js/adminNotification.js')}}"></script>
+
 
     <script>
       function customAlert(type, message){
@@ -123,6 +126,6 @@
         });
         </script> --}}
 
-    
+
     </body>
     </html>
