@@ -54,7 +54,14 @@
             </li>
 
             <li class="nav-item">
-              <a href="{{route('manage.users')}}" class="nav-link {{route('customer.address')? 'active': null}}">
+              <a href="{{route('customer.products')}}" class="nav-link {{route('customer.products')? 'active': null}}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>All Products</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{route('customer.order')}}" class="nav-link {{route('customer.order')? 'active': null}}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>My Orders</p>
               </a>

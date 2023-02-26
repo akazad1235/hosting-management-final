@@ -91,14 +91,26 @@
                       </div>
                   </div>
 
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label for="status">Purchase Type</label>
+                        <select class="form-control" id="purchase_type" name="purchase_type">
+                            <option value="Regular" selected>Regular</option>
+                            <option value="Subscription">Subscription</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
                   {{-- <div>
                     <img src="#" alt="" name="preiImg" id="preiImg">
                   </div> --}}
 
-                  <div class="custom-file mt-3 mb-3">
+                  {{-- <div class="custom-file mt-3 mb-3">
                     <input type="file" class="custom-file-input" id="image" name="image">
                     <label class="custom-file-label" for="customFile">Image Upload</label>
-                  </div>
+                  </div> --}}
     
                   <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-primary" id="savedata" value="create">Save
@@ -162,6 +174,7 @@
       $('#name').val(data.name);
       $('#description').val(data.description);
       $('#price').val(data.price);
+      $('#purchase_type').val(data.purchase_type);
       $('#category_id').val(data.category_id);
       $('#discount_id').val(data.discount_id);
       $('#id').val(data.id);

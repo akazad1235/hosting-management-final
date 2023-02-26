@@ -19,6 +19,14 @@ class CustomerController extends Controller
     }
 
     public function loginFromCheckout(Request $req){
+        $paymentMethod = $req->paymentMethod;
+        if($paymentMethod == "paypal_payment"){
+            $paymentRoute = "paypal.payment";
+        } elseif($paymentMethod == "stripte_payment"){
+            $paymentRoute = "make.payment";
+        } elseif($paymentMethod == "bank_transfer"){
+            $paymentRoute = "bank.transfer";
+        }
         // return $req;
         $product_id = $req->product_id;
         $company = $req->company;
@@ -27,6 +35,11 @@ class CustomerController extends Controller
         $state = $req->state;
         $city = $req->city;
         $zip_code = $req->zip;
+        $subscription_type = $req->subscription_type;
+        $product_discounted_price = $req->product_discounted_price;
+        $cuppon_discounted_price = $req->cuppon_discounted_price;
+        $total_discounted_price = $req->total_discounted_price;
+        
         $checkThis = [
             'email' => 'required|email',
             'password' => 'required|min:4|max:8'
@@ -37,17 +50,19 @@ class CustomerController extends Controller
         if(Auth::guard('customer')->attempt(['email' => $req->email, 'password' => $req->password], $req->get('remember'))){
             $customer_id = auth::guard('customer')->user()->id;
             $address_id = Address::where('customer_id', $customer_id)->get();
+            $product_id = $req->product_id;
 
-            // $addToCart = new Cart;
-            // $addToCart->customer_id = $customer_id;
-            // $addToCart->product_id = $product_id;
-            // $addToCart->address_id = $address_id;
-            // $addToCart->product_discounted_price = $req->product_discounted_price;
-            // $addToCart->cuppon_discounted_price = $req->cuppon_discounted_price;
-            // $addToCart->total_discounted_price = $req->total_discounted_price;
-            // $addToCart->save();
+            $addToCart = new Cart;
+            $addToCart->customer_id = $customer_id;
+            $addToCart->product_id = $product_id;
+            $addToCart->address_id = $address_id[0]->id;
+            $addToCart->subscription_type = $subscription_type;
+            $addToCart->product_discounted_price = preg_replace('/[^0-9]/', '', $product_discounted_price);
+            $addToCart->cuppon_discounted_price = preg_replace('/[^0-9]/', '', $cuppon_discounted_price);
+            $addToCart->total_discounted_price = preg_replace('/[^0-9]/', '', $total_discounted_price);
+            $addToCart->save();
 
-            return redirect()->route('make.payment');
+            return redirect()->route($paymentRoute, ["cartId" => $addToCart->id]);
         } else {
             session()->flash('loginError', 'Email/Password is incorrect!');
             return back()->withInput($req->only('email'));
@@ -78,6 +93,19 @@ class CustomerController extends Controller
         $state = $req->state;
         $city = $req->city;
         $zip_code = $req->zip;
+        $subscription_type = $req->subscription_type;
+        $product_discounted_price = $req->product_discounted_price;
+        $cuppon_discounted_price = $req->cuppon_discounted_price;
+        $total_discounted_price = $req->total_discounted_price;
+
+        $paymentMethod = $req->paymentMethod;
+        if($paymentMethod == "paymentMethod"){
+            $paymentRoute = "paypal.payment";
+        } elseif($paymentMethod == "stripte_payment"){
+            $paymentRoute = "make.payment";
+        } elseif($paymentMethod == "bank_transfer"){
+            $paymentRoute = "bank.transfer";
+        }
 
         $customerCreate  = array(
             "name"          =>  $req->firstName . ' '. $req->firstName,
@@ -110,15 +138,17 @@ class CustomerController extends Controller
             $addToCart->customer_id = $customer_id;
             $addToCart->product_id = $product_id;
             $addToCart->address_id = $adAaddress->id;
-            $addToCart->product_discounted_price = $req->product_discounted_price;
-            $addToCart->cuppon_discounted_price = $req->cuppon_discounted_price;
-            $addToCart->total_discounted_price = $req->total_discounted_price;
+            $addToCart->subscription_type = $subscription_type;
+            $addToCart->product_discounted_price = preg_replace('/[^0-9]/', '', $product_discounted_price);
+            $addToCart->cuppon_discounted_price = preg_replace('/[^0-9]/', '', $cuppon_discounted_price);
+            $addToCart->total_discounted_price = preg_replace('/[^0-9]/', '', $total_discounted_price);
             $addToCart->save();
             
-            return redirect()->route('make.payment')->with("success", "Success! Registration completed");
-            } else {
-                return redirect()->route('make.payment')->with("error", "Address not inserted");
-            }
+            return redirect()->route($paymentRoute)->with("success", "Success! Registration completed");
+        }
+        else {
+            return back()->with("failed", "Alert! Failed to register");
+        }
             
         }
         else {

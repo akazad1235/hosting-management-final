@@ -366,39 +366,48 @@
 									</span>
 								@enderror
 							</div>
-							<div class="col-md-6 mb-3">
-								<label for="lastName">
-									Subscription
-								</label>
-								<select class="form-control @error('subscription') is-invalid @enderror" id="subscription" name="subscription" required>
-									<option value="monthly">Monthly</option>
-									<option value="monthly">Quaterly</option>
-									<option value="monthly">Half Yearly</option>
-									<option value="monthly">Yearly</option>
-								</select>
-								@error('subscription')
-									<span class="invalid-feedback" role="alert">
-										<strong>{{ $message }}</strong>
-									</span>
-								@enderror
-							</div>
+							@if ($product->purchase_type == "Subscription")
+								<div class="col-md-6 mb-3">
+									<label for="lastName">
+										Subscription
+									</label>
+									<select class="form-control @error('subscription_type') is-invalid @enderror" id="subscription_type" name="subscription_type" required>
+										{{-- {{dd($subscriptionType)}} --}}
+										@foreach ($subscriptionType as $item)
+											<option value="{{$item->value}}">{{$item->type}}</option>
+										@endforeach
+									</select>
+									@error('subscription_type')
+										<span class="invalid-feedback" role="alert">
+											<strong>{{ $message }}</strong>
+										</span>
+									@enderror
+								</div>
+							@endif
 						</div>
 						<div class="d-block my-3">
 							<div class="custom-control custom-radio">
-								<input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
+								<input id="credit" name="paymentMethod" value="paypal_payment" type="radio" class="custom-control-input"
 								checked required />
 								<label class="custom-control-label" for="credit">
-									Debit Cards/Credit Cards
+									Pay on paypal by account or credit card
 								</label>
 							</div>
 							<div class="custom-control custom-radio">
-								<input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
+								<input id="debit" name="paymentMethod" value="stripte_payment" type="radio" class="custom-control-input"
 								required />
 								<label class="custom-control-label" for="debit">
-									Bank Transfer
+									Pay on stripe by credit card
 								</label>
 							</div>
-						</div>
+							<div class="custom-control custom-radio">
+								<input id="debit" name="paymentMethod" value="bank_transfer" type="radio" class="custom-control-input"
+								required />
+								<label class="custom-control-label" for="debit">
+									Pay by bank transfer to BFIN
+								</label>
+							</div>
+						</div
 						
 						
 						<hr class="mb-4" />
@@ -1016,36 +1025,46 @@
 									</span>
 								@enderror
 							</div>
-							<div class="col-md-6 mb-3">
-								<label for="lastName">
-									Subscription
-								</label>
-								<select class="form-control @error('subscription') is-invalid @enderror" id="subscription" name="subscription" required>
-									<option value="monthly">Monthly</option>
-									<option value="monthly">Quaterly</option>
-									<option value="monthly">Half Yearly</option>
-									<option value="monthly">Yearly</option>
-								</select>
-								@error('subscription')
-									<span class="invalid-feedback" role="alert">
-										<strong>{{ $message }}</strong>
-									</span>
-								@enderror
-							</div>
+							@if ($product->purchase_type == "Subscription")
+								<div class="col-md-6 mb-3">
+									<label for="lastName">
+										Subscription
+									</label>
+									<select class="form-control @error('subscription_type') is-invalid @enderror" id="subscription_type" name="subscription_type" required>
+										{{-- {{dd($subscriptionType)}} --}}
+										@foreach ($subscriptionType as $item)
+											<option value="{{$item->value}}">{{$item->type}}</option>
+										@endforeach
+									</select>
+									@error('subscription')
+										<span class="invalid-feedback" role="alert">
+											<strong>{{ $message }}</strong>
+										</span>
+									@enderror
+								</div>
+							@endif
+							
 						</div>
 						<div class="d-block my-3">
 							<div class="custom-control custom-radio">
-								<input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
+								<input id="credit" name="paymentMethod" value="paypal_payment" type="radio" class="custom-control-input"
 								checked required />
 								<label class="custom-control-label" for="credit">
-									Debit Cards/Credit Cards
+									Pay on paypal by account or credit card
 								</label>
 							</div>
 							<div class="custom-control custom-radio">
-								<input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
+								<input id="debit" name="paymentMethod" value="stripte_payment" type="radio" class="custom-control-input"
 								required />
 								<label class="custom-control-label" for="debit">
-									Bank Transfer
+									Pay on stripe by credit card
+								</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input id="debit" name="paymentMethod" value="bank_transfer" type="radio" class="custom-control-input"
+								required />
+								<label class="custom-control-label" for="debit">
+									Pay by bank transfer to BFIN
 								</label>
 							</div>
 						</div>
@@ -1082,6 +1101,10 @@
 						$('#showcustomerRegistration').removeClass('d-none');
 						$('#showCustomerLogin').addClass('d-none');
 					}
+				});
+
+				$('subscription_type').on('change', function (e) {
+					alert(this.value);
 				});
 
 				$(document).ready(function() {
