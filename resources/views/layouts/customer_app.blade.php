@@ -17,7 +17,7 @@
   <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
-
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 </head>
 <body class="hold-transition sidebar-mini {{Request::routeIs('make.payment')? 'sidebar-collapse': null}}">
@@ -40,14 +40,14 @@
         </div>
       </aside>
       <!-- /.control-sidebar --> --}}
-    
+
       <!-- Main Footer -->
      @include('customer.footer')
     </div>
     <!-- ./wrapper -->
-    
+
     <!-- REQUIRED SCRIPTS -->
-    
+
     <!-- jQuery -->
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->
@@ -83,10 +83,11 @@
     <script src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-    
-  
+
+
     <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
     <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <script>
       function customAlert(type, message){
@@ -103,6 +104,43 @@
                   })
       }
     </script>
+    <script>
+        @if(Session::has('message'))
+        toastr.options =
+        {
+            "closeButton" : true,
+            "progressBar" : true
+        }
+                toastr.success("{{ session('message') }}");
+        @endif
+
+        @if(Session::has('error'))
+        toastr.options =
+        {
+            "closeButton" : true,
+            "progressBar" : true
+        }
+                toastr.error("{{ session('error') }}");
+        @endif
+
+        @if(Session::has('info'))
+        toastr.options =
+        {
+            "closeButton" : true,
+            "progressBar" : true
+        }
+                toastr.info("{{ session('info') }}");
+        @endif
+
+        @if(Session::has('warning'))
+        toastr.options =
+        {
+            "closeButton" : true,
+            "progressBar" : true
+        }
+                toastr.warning("{{ session('warning') }}");
+        @endif
+      </script>
     @stack('page-script')
 
       {{-- <script>
@@ -123,6 +161,6 @@
         });
         </script> --}}
 
-    
+
     </body>
     </html>

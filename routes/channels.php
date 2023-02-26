@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
-
+use App\Models\Admin;
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -13,6 +14,26 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+// Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+//     return (int) $user->id === (int) $id;
+// });
+
+// Broadcast::channel('TestApp.{userId}', function ($user, $userId) {
+//      return (int) $user->id === (int) $userId;
+// });
+
+Broadcast::channel('TestApp.{userId}', function ($admin, $userId) {
+
+    return  $admin->id == $userId;
+
 });
+
+Broadcast::channel('customer.{adminId}', function ($customer, $customerId) {
+    return  $customer->id == $customerId;
+});
+Broadcast::channel('AdminNotifications', function ($admin) {
+    return true;
+});
+
+
+

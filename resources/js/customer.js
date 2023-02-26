@@ -1,70 +1,55 @@
 require('./bootstrap');
- alert('okkkk admin');
-// const message_el = document.getElementById('display-message');
-// const username_input =document.getElementById('username');
-// const message_input =document.getElementById('username_input');
-// const message_form =document.getElementById('message_form');
-// const user_id =document.getElementById('user-id').value;
 
 
-// message_form.addEventListener('submit', function(e){
+// const submit_message_form =document.getElementById('submit_message_form');
+// const message_input =document.getElementById('message_input');
+// const admin_id =document.getElementById('admin_id');
+
+
+// submit_message_form.addEventListener('submit', function(e){
 //     e.preventDefault();
-//     alert('okkkk');
-//     let has_errors = false;
-//     if(username_input.value ==''){
-//         alert('please enter your user name');
-//         has_Errors = true;
-//     }
-//     if(message_input.value ==''){
-//         alert('please enter your message');
-//         has_Errors = true;
-//     }
-//     if(has_errors){
-//         return;
-//     }
 
-//     axios({
+//         axios({
 //         method: 'post',
 //         url: '/admin/send-message',
 //         data: {
-//             username: username_input.value,
 //             message: message_input.value,
+//             userId: user_id.value,
 //         }
 //     })
 //         .then(res=>{
-//             console.log(res);
+//             console.log(res.data);
 //         })
 //         .catch(function (error) {
 //             console.log(error);
 //         });
 
-// })
-//var convertId = parseInt(user_id);
+//  })
 
 const submit_message_form =document.getElementById('submit_message_form');
 const message_input =document.getElementById('message_input');
-const admin_id =document.getElementById('admin_id').value;
 const ticket_id =document.getElementById('ticket_id');
-let showChat = document.getElementById('show-chat');
+const admin_id =document.getElementById('admin_id');
 
-console.log(admin_id);
+let showChat = document.getElementById('show-chat');
 
 submit_message_form.addEventListener('submit', function(e){
     e.preventDefault();
 
         axios({
         method: 'post',
-        url: '/admin/send-message',
+        url: '/customer/send-message',
         data: {
             message: message_input.value,
-            userId: user_id.value,
+            adminId: admin_id.value,
             ticketId: ticket_id.value,
         }
     })
         .then(res=>{
             console.log(res.data);
-            message_input.value='';
+            message_input.value ='';
             showChat.innerHTML +=`
+            <p class="text-center" style="margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px">${res.data.dateTime}</p>
             <div class="bg-light m-3 d-flex flex-row-reverse p-1 rounded">
                     <div>
                         <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
@@ -81,11 +66,20 @@ submit_message_form.addEventListener('submit', function(e){
 
  })
 
- let id = parseInt(admin_id)
-window.Echo.private('TestApp.'+id)
-.listen('testEvent',(e)=>{
-    console.log(e);
-    showChat.innerHTML +=`
+    var customer_id =document.getElementById('customer_id').value;
+
+    var id = parseInt(customer_id);
+    console.log(customer_id);
+
+        window.Echo.private('customer.'+id)
+        .listen('AdminMessage',(e)=>{
+            console.log(e);
+
+        //  message_input.value='';
+        //   message_el.innerHTML +='<div class="message"><strong style="color:red">'+e.message +'</strong>'+ e.message+'</div>'
+           // if(e.customer_id == id){
+                showChat.innerHTML +=`
+                <p class="text-center" style="margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px">${e.dateTime}</p>
                 <div class="bg-secondary m-3 d-flex p-1 rounded">
                         <div>
                             <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
@@ -96,6 +90,6 @@ window.Echo.private('TestApp.'+id)
 
                     </div>
                 `
-});
-
+           // }
+    });
 
