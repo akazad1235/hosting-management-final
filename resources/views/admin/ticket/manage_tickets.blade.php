@@ -106,8 +106,8 @@
           ajax: "{{ route('manage.tickets') }}",
           columns: [
               {data: 'id', name: 'id'},
-              {data: 'email', name: 'email'},
-              {data: 'order_id', name: 'order_id'},
+              {data: 'customer.email', name: 'customer.email'},
+              {data: 'product.name', name: 'product.name'},
               {data: 'ticket_code', name: 'ticket_code'},
               {data: 'priority', name: 'priority'},
               {data: 'status', name: 'status'},

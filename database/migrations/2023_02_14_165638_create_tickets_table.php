@@ -16,7 +16,8 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('customer_id')->unsigned();
-            $table->bigInteger('order_id')->unsigned();
+            $table->bigInteger('order_id')->nullable()->unsigned();
+            $table->foreignId('product_id');
             $table->string('ticket_code');
             $table->string('priority', 100);
             $table->string('support_team', 100);

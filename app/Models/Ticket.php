@@ -16,4 +16,10 @@ class Ticket extends Model
     public function customer(){
         return $this->belongsTo(Customer::class);
     }
+    public function order(){
+        return $this->belongsTo(Order::class, 'order_id', 'id');
+    }
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 }

@@ -30,7 +30,7 @@ class TicketController extends Controller
     //
     public function index(Request $req){
        // $data = DB::table('customers')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->get();
-        $data = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->with('conversion')->orderBy('id', 'asc')->get();
+        $data = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->with('conversion','product:id,name')->orderBy('id', 'asc')->get();
         if ($req->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -62,7 +62,7 @@ class TicketController extends Controller
     public function generateTicket(Request $request){
 //        return $request->all();
         Validator::make($request->all(), [
-            'order_id' => ['required'],
+            'product_id' => ['required'],
             'support_team' => ['required'],
             'priority' => ['required'],
             'message' => ['required'],
@@ -71,7 +71,7 @@ class TicketController extends Controller
 
 
         try {
-         //   DB::beginTransaction();
+            DB::beginTransaction();
             $user = Customer::findOrFail(Auth::guard('customer')->user()->id);
            $order = OrderModel::find($request->order_id);
 
@@ -79,7 +79,7 @@ class TicketController extends Controller
 //                dd("hgg");
                 $ticket = Ticket::create([
                     'customer_id' => $user->id,
-                    'order_id' => $request->order_id,
+                    'product_id' => $request->product_id,
                     'support_team' => $request->support_team,
                     'ticket_code' => random_int(100000, 999999),
                     'priority' => $request->priority,
@@ -108,7 +108,7 @@ class TicketController extends Controller
                     $nowDate = date('d-m-y h:i:s');
                     $convertDate =  Carbon::createFromFormat('d-m-y h:i:s', $nowDate)->diffForHumans();
                      event(new CustomerTicket($user->name, $user->email, $ticket->id, $convertDate));
-                 //   DB::commit();
+                    DB::commit();
                     return redirect()->route('customer.ticket.list')->with('message','Data added Successfully');
                 }else{
                     throw new \Exception('Invalid Information, Please Try again');

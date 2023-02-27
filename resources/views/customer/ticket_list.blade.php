@@ -19,6 +19,7 @@
         <tr>
           <th>Ticket NO</th>
           <th>Priority</th>
+          <th>Product Name</th>
           <th>support team</th>
           <th>Status</th>
           <th>Created At</th>
@@ -47,6 +48,7 @@
           columns: [
               {data: 'ticket_code', name: 'ticket_code'},
               {data: 'priority', name: 'priority'},
+              {data: 'product.name', name: 'product.name'},
               {data: 'support_team', name: 'support_team'},
               {data: 'status', name: 'status'},
               {data: 'created_at', name: 'created_at'},

@@ -17,15 +17,15 @@ class TicketController extends Controller
     public function tickets(Request $req){
      // return count( readAsTickets());
 
-        $data = DB::table('tickets')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->orderBy('id', 'desc')->get();
+//        $data = DB::table('tickets')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->orderBy('id', 'desc')->get();
+        $data = Ticket::with('conversion','customer:id,email','product:id,name')->orderBy('id', 'asc')->get();
+
         if ($req->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     //    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
                     $btn = '<a href="'. route('conversation', $row->id).'" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn  btn-danger btn-sm manageOrder">Open Conversion</a>';
-
-                    //  $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deletePost">Delete</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])

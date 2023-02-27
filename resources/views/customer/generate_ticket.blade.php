@@ -74,13 +74,13 @@
                     <label for="product">
                         Select Your Product (not mendetory)
                     </label>
-                    <select class="form-control @error('order_id') is-invalid @enderror" id="product" name="order_id">
+                    <select class="form-control @error('product_id') is-invalid @enderror" id="product" name="product_id">
                         <option value="">Select One</option>
                         @foreach ($orders as $order)
-                            <option value="{{ $order->id }}">{{ $order->products->name }} </option>
+                            <option value="{{ $order->products->id}}">{{ $order->products->name }} </option>
                         @endforeach
                     </select>
-                    @error('order_id')
+                    @error('product_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
