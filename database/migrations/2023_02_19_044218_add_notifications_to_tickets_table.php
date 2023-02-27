@@ -15,7 +15,7 @@ class AddNotificationsToTicketsTable extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->integer('supported_by')->nullable();
-            $table->timestamp('read_at')->nullable();
+            $table->dateTime('read_at')->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ class AddNotificationsToTicketsTable extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->integer('supported_by')->change();
-            $table->timestamp('read_at')->change();
+            $table->dateTime('read_at')->change();
         });
     }
 }

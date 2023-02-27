@@ -15,15 +15,17 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('order_id');
+            $table->bigInteger('customer_id')->unsigned();
+            $table->bigInteger('order_id')->unsigned();
             $table->string('ticket_code');
             $table->string('priority', 100);
             $table->string('support_team', 100);
             $table->string('status', 100)->default('pending');
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->timestamps();
+
+
+           $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

@@ -66,22 +66,16 @@
                 <p>My Orders</p>
               </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="{{route('customer.ticket')}}" class="nav-link {{route('customer.ticket')? 'active': null}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Generate Ticket</p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Conversion to Support</p>
-                </a>
-              </li>
+            </li> --}}
               <li class="nav-item">
                 <a href="{{route('customer.ticket.list')}}" class="nav-link {{route('customer.ticket.list')? 'active': null}}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ticekt List</p>
+                  <p>Ticket</p>
                 </a>
               </li>
             </ul>

@@ -18,7 +18,7 @@ class CreateConversionsTable extends Migration
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->unsignedBigInteger('ticket_id')->nullable();
-            $table->longText('message')->nullable();
+            $table->text('message')->nullable();
             $table->string('file')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('admin_id')->references('id')->on('admins')->onUpdate('cascade')->onDelete('cascade');
