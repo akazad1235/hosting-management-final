@@ -27,7 +27,9 @@ class TicketController extends Controller
 {
     use ImagesTrait;
 
-    //
+    /*
+     * all ticket list show
+     */
     public function index(Request $req){
        // $data = DB::table('customers')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->get();
         $data = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->with('conversion','product:id,name')->orderBy('id', 'asc')->get();
@@ -39,6 +41,9 @@ class TicketController extends Controller
                     return date('d-m-Y | H:i A', strtotime($row->created_at));
 
                 })
+                ->addColumn('ticket_status', function($row){
+                    return '<span class="badge badge-'.randomStatusColor($row->status).'">'.$row->status.'</span>';
+                })
                 ->addColumn('action', function($row){
                     $btn = '<a href="'.route('customer.conversion', $row->conversion->id).'" data-toggle="tooltip"  data-id="'.$row->conversion->id.'" data-original-title="Edit" class="edit btn  btn-danger btn-sm manageOrder">Open Conversion</a>';
                     if($row->conversion->admin_id != null){
@@ -49,16 +54,19 @@ class TicketController extends Controller
                     }
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['created_at','ticket_status','action'])
                 ->make(true);
         }
         return view('customer.ticket_list',compact('data'));
     }
+    //redirect ticket view page with product details info send
     public function ticket(){
         $orders = OrderModel::where('customer_id', Auth::guard('customer')->user()->id)->with('products:id,name')->get();
         return view('customer.generate_ticket', ['orders' => $orders]);
     }
-
+    /*
+     * created ticket
+     */
     public function generateTicket(Request $request){
 //        return $request->all();
         Validator::make($request->all(), [
@@ -76,7 +84,7 @@ class TicketController extends Controller
            $order = OrderModel::find($request->order_id);
 
             if($user){
-//                dd("hgg");
+                //ticket create
                 $ticket = Ticket::create([
                     'customer_id' => $user->id,
                     'product_id' => $request->product_id,
@@ -85,14 +93,15 @@ class TicketController extends Controller
                     'priority' => $request->priority,
                 ]);
                 if($ticket){
+                    //conversion create according to ticket
                     $conversation = Conversion::create([
                         'customer_id' => $ticket->customer_id,
                         'ticket_id' => $ticket->id,
                         'message' => $request->message,
                         'type' => 'customer',
                     ]);
+                    //if have ticket image then update image according to conversion
                     if(!empty($conversation) && $request->hasFile('image')){
-                       // return  'dsfsfsd';
                         $imagePath = $this->uploadImage($request->file('image'), 'conversation');
                         $conversation->update([
                             'file' => $imagePath,
@@ -102,10 +111,10 @@ class TicketController extends Controller
                     //notification to all admin user
                     $user['conversion_id'] = $conversation->id;
 
-                     $admin = Admin::limit(10)->get();
+                    // $admin = Admin::limit(10)->get();
                     // Notification::send($admin, new AdminFollowNotification($user));
 
-                    $nowDate = date('d-m-y h:i:s');
+                    $nowDate = date('d-m-y h:i:s');//send current date send to customer chat box through customer event
                     $convertDate =  Carbon::createFromFormat('d-m-y h:i:s', $nowDate)->diffForHumans();
                      event(new CustomerTicket($user->name, $user->email, $ticket->id, $convertDate));
                     DB::commit();
@@ -119,7 +128,7 @@ class TicketController extends Controller
 
 
         }catch (\Exception $ex){
-            return $ex->getMessage();
+            return redirect()->route('customer.ticket.list')->with('error',$ex->getMessage());
         }
 
 

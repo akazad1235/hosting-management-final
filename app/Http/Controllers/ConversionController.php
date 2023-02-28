@@ -50,10 +50,12 @@ class ConversionController extends Controller
             'message'=> $request->message,
             'ticket_id'=> $request->ticketId,
             'type'=> 'admin',
+            'admin_id' => Auth::guard('admin')->user()->id
 
         ]);
         $dateTime = date('d-m-Y | H:i A ', strtotime($conversion->created_at));
-        broadcast(new AdminMessage($request->message, $request->userId, $dateTime));
+        $adminName = Auth::guard('admin')->user()->name;
+        broadcast(new AdminMessage($request->message, $request->userId, $dateTime, $adminName));
 
         return response()->json(['success' => 'message send success', 'message'=> $request->message]);
     }

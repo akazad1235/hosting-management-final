@@ -110,7 +110,7 @@
               {data: 'product.name', name: 'product.name'},
               {data: 'ticket_code', name: 'ticket_code'},
               {data: 'priority', name: 'priority'},
-              {data: 'status', name: 'status'},
+              {data: 'ticket_status', name: 'ticket_status'},
               {data: 'action', name: 'action', orderable: false, searchable: false},
           ]
       });

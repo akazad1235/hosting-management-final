@@ -15,6 +15,7 @@ use Yajra\DataTables\DataTables;
 class TicketController extends Controller
 {
     public function tickets(Request $req){
+        //randomStatusColor('pending');
      // return count( readAsTickets());
 
 //        $data = DB::table('tickets')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->orderBy('id', 'desc')->get();
@@ -23,12 +24,23 @@ class TicketController extends Controller
         if ($req->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('ticket_status', function($row){
+                    //Carbon::createFromFormat('m/d/Y', $row->created_at);
+                   // return date('d-m-Y | H:i A', strtotime($row->created_at));
+                   return '<span class="badge badge-'.randomStatusColor($row->status).'">'.$row->status.'</span>';
+
+                })
+                ->addColumn('created_at', function($row){
+                    //Carbon::createFromFormat('m/d/Y', $row->created_at);
+                    return date('d-m-Y | H:i A', strtotime($row->created_at));
+
+                })
                 ->addColumn('action', function($row){
                     //    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
                     $btn = '<a href="'. route('conversation', $row->id).'" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn  btn-danger btn-sm manageOrder">Open Conversion</a>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','ticket_status','created_at'])
                 ->make(true);
         }
         return view('admin.ticket.manage_tickets',compact('data'));

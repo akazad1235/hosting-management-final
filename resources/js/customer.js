@@ -50,12 +50,13 @@ submit_message_form.addEventListener('submit', function(e){
             message_input.value ='';
             showChat.innerHTML +=`
             <p class="text-center" style="margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px">${res.data.dateTime}</p>
-            <div class="bg-light m-3 d-flex flex-row-reverse p-1 rounded">
+            <div class="bg-light align-items-center m-3 d-flex flex-row-reverse p-1 rounded">
                     <div>
-                        <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
+                            <p style="margin-bottom: 0px" class="font-weight-bold">${res.data?.customerName}</p>
+                            <img class="rounded-circle" style="width: 40px; float:right" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
                     </div>
                 <div>
-                    <p class="user mb-1">${res.data.message}</p>
+                    <p class="user p-2 mb-1">${res.data.message}</p>
                 </div>
                 </div>
             `
@@ -80,12 +81,13 @@ submit_message_form.addEventListener('submit', function(e){
            // if(e.customer_id == id){
                 showChat.innerHTML +=`
                 <p class="text-center" style="margin-bottom: -10px; color:rgb(167, 158, 158); font-size:10px">${e.dateTime}</p>
-                <div class="bg-secondary m-3 d-flex p-1 rounded">
+                <div class="bg-secondary align-items-center m-3 d-flex p-1 rounded">
                         <div>
-                            <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
+                            <p style="margin-bottom: 0px" class="font-weight-bold">${e.adminName}</p>
+                            <img class="rounded-circle" style="width: 40px; float:right" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
                         </div>
                     <div>
-                        <p class="user mb-1">${e.message}</p>
+                        <p class="user mb-1 p-2">${e.message}</p>
                     </div>
 
                     </div>

@@ -13,6 +13,18 @@ use App\Models\Ticket;
         echo count($counts);
     }
 
+    function randomStatusColor($status){
+
+        $color = [
+            'pending' => 'danger',
+            'connected' => 'warning',
+            'incomplete'  => 'secondary',
+            'done'  => 'success',
+        ];
+
+        return $color[$status];
+    }
+
 
 
 

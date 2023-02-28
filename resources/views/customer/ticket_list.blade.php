@@ -50,7 +50,7 @@
               {data: 'priority', name: 'priority'},
               {data: 'product.name', name: 'product.name'},
               {data: 'support_team', name: 'support_team'},
-              {data: 'status', name: 'status'},
+              {data: 'ticket_status', name: 'ticket_status'},
               {data: 'created_at', name: 'created_at'},
               {data: 'action', name: 'action', orderable: false, searchable: false},
           ]
