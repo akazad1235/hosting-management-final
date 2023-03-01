@@ -20,13 +20,14 @@ class ConversionController extends Controller
 
       $conversion = Conversion::with('ticket')->where('ticket_id', $id)->first();
 
-      $conversions = Conversion::where('ticket_id', $id)->get(); //get all stored message stored by ticket id
+      $conversions = Conversion::where('ticket_id', $id)->with('admin:id,name')->get(); //get all stored message stored by ticket id
 
 
       $ticket = Ticket::find($conversion->ticket_id);
       $ticket->update([
           'read_at' => date('d-m-y h:i:s'),
           'status' => 'connected',
+
           'supported_by' => Auth::guard('admin')->user()->id
       ]);
 

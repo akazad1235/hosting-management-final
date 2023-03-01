@@ -44,4 +44,15 @@ class ConversionController extends Controller
         return response()->json(['success' => 'message send success', 'message'=> $request->message, 'dateTime' => $dateTime, 'customerName' => Auth::guard('customer')->user()->name]);
     }
 
+    public function replayCustomer(Request $request, $id){
+        return $request->all();
+        $conversion = Conversion::create([
+            'message'=> $request->message,
+            'ticket_id'=> $request->ticketId,
+            'type'=> 'customer',
+            'customer_id' => Auth::guard('customer')->user()->id
+
+        ]);
+    }
+
 }

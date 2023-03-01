@@ -27,11 +27,11 @@ class TicketController extends Controller
 {
     use ImagesTrait;
 
+
     /*
      * all ticket list show
      */
     public function index(Request $req){
-       // $data = DB::table('customers')->select('tickets.*', 'customers.email')->leftJoin('customers',  'tickets.customer_id', '=', 'customers.id')->get();
         $data = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->with('conversion','product:id,name')->orderBy('id', 'asc')->get();
         if ($req->ajax()) {
             return DataTables::of($data)
@@ -59,6 +59,29 @@ class TicketController extends Controller
         }
         return view('customer.ticket_list',compact('data'));
     }
+
+    public function allTicket(Request $req){
+        $data = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->with('conversion','product:id,name')->orderBy('id', 'asc')->get();
+        if ($req->ajax()) {
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('created_at', function($row){
+                    //Carbon::createFromFormat('m/d/Y', $row->created_at);
+                    return date('d-m-Y | H:i A', strtotime($row->created_at));
+
+                })
+                ->addColumn('ticket_status', function($row){
+                    return '<span class="badge badge-'.randomStatusColor($row->status).'">'.$row->status.'</span>';
+                })
+                ->addColumn('action', function($row){
+                        return '<a href="'.route('customer.view.ticket', $row->id).'" class="edit btn  btn-danger btn-sm manageOrder">Open Conversions</a>';
+                })
+                ->rawColumns(['created_at','ticket_status','action'])
+                ->make(true);
+        }
+        return view('customer.ticket_all',compact('data'));
+    }
+
     //redirect ticket view page with product details info send
     public function ticket(){
         $orders = OrderModel::where('customer_id', Auth::guard('customer')->user()->id)->with('products:id,name')->get();

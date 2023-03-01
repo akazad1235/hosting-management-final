@@ -10,21 +10,23 @@
                 overflow:auto;">
                    @foreach ($conversions as $item)
                    @if($item->type === 'customer')
-                   <div class="bg-secondary m-3 d-flex p-1 rounded">
-                       <div>
-                           <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
-                       </div>
+                   <div class="bg-secondary m-3 d-flex align-items-center p-1 rounded">
+                        <div>
+                            <p style="margin-bottom: 0px" class="font-weight-bold">user </p>
+                            <img class="rounded-circle" style="width: 40px; float:right" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
+                        </div>
                    <div>
-                       <p class="user mb-1">{{ $item->message }}</p>
+                       <p class="user mb-1 p-2">{{ $item->message }}</p>
                    </div>
                    </div>
                    @else
-                   <div class="bg-light m-3 d-flex flex-row-reverse p-1 rounded">
-                       <div>
-                           <img class="" style="width: 30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
-                       </div>
+                   <div class="bg-light m-3 d-flex flex-row-reverse align-items-center p-1 rounded">
+                    <div>
+                        <p style="margin-bottom: 0px" class="font-weight-bold">{{ Auth::guard('admin')->user()->name }}</p>
+                        <img class="rounded-circle" style="width: 40px; float:right" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="">
+                    </div>
                    <div>
-                       <p class="user mb-1">{{ $item->message }}</p>
+                       <p class="user mb-1 p-2">{{ $item->message }}</p>
                    </div>
                    </div>
                    @endif

@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Shop\CheckoutController;
 use App\Http\Controllers\Shop\CustomerController;
 use App\Http\Controllers\Shop\HomeController;
+use App\Http\Controllers\customer\TicketViewController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\customer\TicketController as CustomerTicket;
 use App\Http\Controllers\customer\ConversionController as CustomerConversion;
@@ -143,6 +144,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('/send-message', [ConversionController::class, 'sendMessage']);
         Route::get('/chat/room', [ConversionController::class, 'chatRoom']);
 
+
         //notification
 
 
@@ -192,7 +194,7 @@ Route::group(['prefix' => 'customer'], function() {
         Route::get('/customer-prodcuts', [CustomerProductsController::class, 'CustomerProducts'])->name('customer.products');
         Route::get('/service-details-info', [CustomerProductsController::class, 'ServiceInfo'])->name('service.detailsinfo');
 
-        
+
         // Route::get('/category/edit/{id}', [CategoryController::class, 'editCategory'])->name('edit.category');
         // Route::post('/delete/category/{id}', [CategoryController::class, 'deleteCategory'])->name('delete.category');
         // Route::post('/update-category', [CategoryController  ::class, 'updateCategory'])->name('update.category');
@@ -202,6 +204,10 @@ Route::group(['prefix' => 'customer'], function() {
         Route::get('/ticket', [CustomerTicket::class, 'ticket'])->name('customer.ticket');
         Route::post('/generate/ticket', [CustomerTicket::class, 'generateTicket'])->name('customer.generate.ticket');
 
+        Route::get('ticket/all', [CustomerTicket::class, 'allTicket'])->name('customer.ticket.all');
+        Route::get('view/ticket/{id}', [TicketViewController::class, 'viewTicket'])->name('customer.view.ticket');
+        //replay
+        Route::post('/replay/{id}', [CustomerConversion::class, 'replayCustomer'])->name('customer.replay');
 
         //conversion
         Route::get('/conversion/{id}', [CustomerConversion::class, 'conversionOpen'])->name('customer.conversion');

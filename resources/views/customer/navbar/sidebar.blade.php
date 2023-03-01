@@ -73,9 +73,15 @@
                 </a>
             </li> --}}
               <li class="nav-item">
+                <a href="{{route('customer.ticket.all')}}" class="nav-link {{route('customer.ticket.all')? 'active': null}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tickets</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{route('customer.ticket.list')}}" class="nav-link {{route('customer.ticket.list')? 'active': null}}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ticket</p>
+                  <p>Ticket old</p>
                 </a>
               </li>
             </ul>
