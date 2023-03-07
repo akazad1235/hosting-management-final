@@ -70,7 +70,7 @@
               </li>
               {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
-                 
+
                   <p>- Create Product</p>
                 </a>
               </li> --}}
@@ -140,13 +140,22 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('manage.tickets')}}" class="nav-link">
+                <a href="{{route('ticket.all')}}" class="nav-link">
                   {{-- <i class="far fa-circle nav-icon"></i> --}}
-                  <p>- All Tickets</p>
+                  <p>-Tickets</p>
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('manage.tickets')}}" class="nav-link">
+                    {{-- <i class="far fa-circle nav-icon"></i> --}}
+                    <p>- All Tickets</p>
+                  </a>
+                </li>
+              </ul>
           </li>
+
           {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>

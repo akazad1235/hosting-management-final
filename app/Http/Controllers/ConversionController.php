@@ -12,6 +12,35 @@ use Illuminate\Support\Facades\DB;
 
 class ConversionController extends Controller
 {
+   public function adminReply(Request $request, $id){
+
+       $conversion = Conversion::create([
+           'message'=> $request->message,
+           'ticket_id'=> $id,
+           'type'=> 'admin',
+           'admin_id' => Auth::guard('admin')->user()->id
+       ]);
+
+       if(!empty($conversion) && $request->hasFile('file')){
+           $imagePath = $this->uploadImage($request->file('file'), 'conversion');
+           $conversion->update([
+               'file' => $imagePath,
+           ]);
+       }
+       // return  $conversions = Conversion::where('ticket_id', $id)->with('admin')->get();
+
+       //  return redirect()->route('customer.view.ticket', $id)->with(['message' => 'Data Successfully Send','conversions'=> $conversions ]);
+       return redirect()->route('admin.view.ticket', $id)->with(['message' => 'Data Successfully Send']);
+   }
+
+
+
+
+
+
+
+
+
     public function index($id)
     {
 

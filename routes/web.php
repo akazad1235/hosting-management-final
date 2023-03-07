@@ -18,6 +18,7 @@ use App\Http\Controllers\Shop\CustomerController;
 use App\Http\Controllers\Shop\HomeController;
 use App\Http\Controllers\customer\TicketViewController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TicketViewController as AdminTicketViewController;
 use App\Http\Controllers\customer\TicketController as CustomerTicket;
 use App\Http\Controllers\customer\ConversionController as CustomerConversion;
 use App\Models\Order;
@@ -138,6 +139,11 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('/delete/ticket/{id}', [TicketController::class, 'deleteTicket'])->name('delete.ticket');
         Route::post('/update/ticket', [TicketController::class, 'updateTicket'])->name('update.ticket');
         Route::get('/ticket/read/notification/{uid}', [TicketController::class, 'readAsNotification'])->name('ticket.readAs.notification');
+
+        //new ticket
+        Route::get('ticket/all', [TicketController::class, 'allTicket'])->name('ticket.all');
+        Route::get('view/ticket/{id}', [AdminTicketViewController::class, 'viewTicket'])->name('admin.view.ticket');
+        Route::post('/replay/{id}', [ConversionController::class, 'adminReply'])->name('admin.replay');
 
         //conversion
         Route::get('/conversation/{id}', [ ConversionController::class, 'index'])->name('conversation');

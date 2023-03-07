@@ -8,8 +8,11 @@ use App\Models\Conversion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Traits\ImagesTrait;
+
 class ConversionController extends Controller
 {
+    use ImagesTrait;
     /*
      * when open conversion click
      */
@@ -45,14 +48,24 @@ class ConversionController extends Controller
     }
 
     public function replayCustomer(Request $request, $id){
-        return $request->all();
+
         $conversion = Conversion::create([
             'message'=> $request->message,
-            'ticket_id'=> $request->ticketId,
+            'ticket_id'=> $id,
             'type'=> 'customer',
             'customer_id' => Auth::guard('customer')->user()->id
-
         ]);
+
+        if(!empty($conversion) && $request->hasFile('file')){
+            $imagePath = $this->uploadImage($request->file('file'), 'conversion');
+            $conversion->update([
+                'file' => $imagePath,
+            ]);
+        }
+     // return  $conversions = Conversion::where('ticket_id', $id)->with('admin')->get();
+
+      //  return redirect()->route('customer.view.ticket', $id)->with(['message' => 'Data Successfully Send','conversions'=> $conversions ]);
+        return redirect()->route('customer.view.ticket', $id)->with(['message' => 'Data Successfully Send']);
     }
 
 }

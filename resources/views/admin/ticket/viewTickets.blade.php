@@ -1,4 +1,4 @@
-@extends('layouts.customer_app')
+@extends('layouts.admin_app')
 
 @section('title', 'Customer Conversion')
 @section('content')
@@ -22,10 +22,10 @@
                           <div class="sub-header d-flex justify-content-between pl-3 pr-3" style="background-color: #dddd">
                               @if($conversion->admin)
                                   <p>Supported by {{$conversion->admin->name}} {{date('d-m-Y | H:i A', strtotime($conversion->created_at))}}</p>
-                                  <p><span class="badge badge-primary">Admin</span></p>
+                                  <p><span class="badge badge-success">Owner</span></p>
                               @else
                                   <p>posted by {{$conversion->customer->name}} {{date('d-m-Y | H:i A', strtotime($conversion->created_at))}}</p>
-                                  <p><span class="badge badge-success">Owner</span></p>
+                                  <p><span class="badge badge-primary">Customer</span></p>
                               @endif
 
                           </div>
@@ -52,15 +52,15 @@
             <div class="user-info d-flex">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" value="{{ Auth::guard('customer')->user()->name }}">
+                    <input type="text" class="form-control" value="{{ Auth::guard('admin')->user()->name }}">
                   </div>
                   <div class="form-group ml-5">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control"  value="{{ Auth::guard('customer')->user()->email }}">
+                    <input type="email" class="form-control"  value="{{ Auth::guard('admin')->user()->email }}">
                   </div>
 
             </div>
-            <form action="{{route('customer.replay', $ticketId)}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('admin.replay', $ticketId)}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="summernote">Message</label>

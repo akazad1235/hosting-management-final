@@ -14,6 +14,7 @@ use Yajra\DataTables\DataTables;
 
 class TicketController extends Controller
 {
+    //live chant system in chat
     public function tickets(Request $req){
         //randomStatusColor('pending');
      // return count( readAsTickets());
@@ -44,6 +45,28 @@ class TicketController extends Controller
                 ->make(true);
         }
         return view('admin.ticket.manage_tickets',compact('data'));
+    }
+
+    public function allTicket(Request $req){
+        $data = Ticket::with('conversion','product:id,name')->orderBy('id', 'desc')->get();
+        if ($req->ajax()) {
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('created_at', function($row){
+                    //Carbon::createFromFormat('m/d/Y', $row->created_at);
+                    return date('d-m-Y | H:i A', strtotime($row->created_at));
+
+                })
+                ->addColumn('ticket_status', function($row){
+                    return '<span class="badge badge-'.randomStatusColor($row->status).'">'.$row->status.'</span>';
+                })
+                ->addColumn('action', function($row){
+                    return '<a href="'.route('admin.view.ticket', $row->id).'" class="edit btn  btn-danger btn-sm manageOrder">Open Conversions</a>';
+                })
+                ->rawColumns(['created_at','ticket_status','action'])
+                ->make(true);
+        }
+        return view('admin.ticket.index',compact('data'));
     }
     //admin support notification received
     public function readAsNotification($uuid){
