@@ -47,25 +47,5 @@ class ConversionController extends Controller
         return response()->json(['success' => 'message send success', 'message'=> $request->message, 'dateTime' => $dateTime, 'customerName' => Auth::guard('customer')->user()->name]);
     }
 
-    public function replayCustomer(Request $request, $id){
-
-        $conversion = Conversion::create([
-            'message'=> $request->message,
-            'ticket_id'=> $id,
-            'type'=> 'customer',
-            'customer_id' => Auth::guard('customer')->user()->id
-        ]);
-
-        if(!empty($conversion) && $request->hasFile('file')){
-            $imagePath = $this->uploadImage($request->file('file'), 'conversion');
-            $conversion->update([
-                'file' => $imagePath,
-            ]);
-        }
-     // return  $conversions = Conversion::where('ticket_id', $id)->with('admin')->get();
-
-      //  return redirect()->route('customer.view.ticket', $id)->with(['message' => 'Data Successfully Send','conversions'=> $conversions ]);
-        return redirect()->route('customer.view.ticket', $id)->with(['message' => 'Data Successfully Send']);
-    }
 
 }

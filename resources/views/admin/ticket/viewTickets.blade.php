@@ -27,7 +27,6 @@
                                   <p>posted by {{$conversion->customer->name}} {{date('d-m-Y | H:i A', strtotime($conversion->created_at))}}</p>
                                   <p><span class="badge badge-primary">Customer</span></p>
                               @endif
-
                           </div>
                           <div class="ticket-info p-3">
                             <p>{!! $conversion->message !!}</p>
@@ -64,12 +63,22 @@
                 @csrf
                 <div class="form-group">
                     <label for="summernote">Message</label>
-                    <textarea class="form-control" name="message" id="summernote"></textarea>
-                </div>
+                    <textarea class="form-control @error('message') is-invalid @enderror" name="message"   id="summernote"></textarea>
 
+                    @error('message')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
                 <div class="form-group">
                     <label for="file">File</label>
-                    <input type="file" class="form-control" name="file"  id="file">
+                    <input type="file" class="form-control @error('file') is-invalid @enderror" name="file"  id="file">
+                    @error('file')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary">Submit</button>

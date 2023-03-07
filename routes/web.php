@@ -143,7 +143,7 @@ Route::group(['prefix' => 'admin'], function() {
         //new ticket
         Route::get('ticket/all', [TicketController::class, 'allTicket'])->name('ticket.all');
         Route::get('view/ticket/{id}', [AdminTicketViewController::class, 'viewTicket'])->name('admin.view.ticket');
-        Route::post('/replay/{id}', [ConversionController::class, 'adminReply'])->name('admin.replay');
+        Route::post('/replay/{id}', [AdminTicketViewController::class, 'adminReply'])->name('admin.replay');
 
         //conversion
         Route::get('/conversation/{id}', [ ConversionController::class, 'index'])->name('conversation');
@@ -213,7 +213,7 @@ Route::group(['prefix' => 'customer'], function() {
         Route::get('ticket/all', [CustomerTicket::class, 'allTicket'])->name('customer.ticket.all');
         Route::get('view/ticket/{id}', [TicketViewController::class, 'viewTicket'])->name('customer.view.ticket');
         //replay
-        Route::post('/replay/{id}', [CustomerConversion::class, 'replayCustomer'])->name('customer.replay');
+        Route::post('/replay/{id}', [TicketViewController::class, 'replayCustomer'])->name('customer.replay');
 
         //conversion
         Route::get('/conversion/{id}', [CustomerConversion::class, 'conversionOpen'])->name('customer.conversion');
