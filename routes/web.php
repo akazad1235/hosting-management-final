@@ -214,6 +214,8 @@ Route::group(['prefix' => 'customer'], function() {
         Route::get('view/ticket/{id}', [TicketViewController::class, 'viewTicket'])->name('customer.view.ticket');
         //replay
         Route::post('/replay/{id}', [TicketViewController::class, 'replayCustomer'])->name('customer.replay');
+        Route::get('/replay/closed/{id}', [TicketViewController::class, 'replayClosed'])->name('customer.replay.closed');
+
 
         //conversion
         Route::get('/conversion/{id}', [CustomerConversion::class, 'conversionOpen'])->name('customer.conversion');

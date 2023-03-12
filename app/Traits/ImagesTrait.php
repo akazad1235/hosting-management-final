@@ -13,17 +13,17 @@ trait ImagesTrait{
       // $file = $file->file('image');
       //  $filename = $file->getClientOriginalName();
 
-        $fileName =  time().'.'.$file->getClientOriginalName();
-       // $request->file('image')->storeAs('images', $fileName);
+      //  $fileName =  time().'.'.$file->getClientOriginalName();
 
         $fileName = rand(0, 999999999) . '_' . date('Ymdhis').'_' . rand(100, 999999999) . '.' . $file->getClientOriginalExtension();
 
-        $file->storeAs("{$path}/", $fileName);
+        $file->storeAs("public/{$path}/", $fileName);
+       // $file->move(public_path("{$path}/", $fileName));
 
      //   $img = Image::make($file)->fit(400)->encode();
      //   $fileName = rand(0, 999999999) . '_' . date('Ymdhis').'_' . rand(100, 999999999) . '.' . $file->getClientOriginalExtension();
      //   Storage::put($fileName, $img);//Put file with own name
-      //  Storage::move($fileName, "{$path}/{$fileName}");//Move file to your location
+      // Storage::move($fileName, "{$path}/{$fileName}");//Move file to your location
 
         $imagePath = public_path("storage/{$existFileName}");
         if (!empty($existFileName) && file_exists($imagePath)){
@@ -55,6 +55,7 @@ trait ImagesTrait{
             // $request->file('image')->storeAs('images', $fileName);
             $fileName = rand(0, 999999999) . '_' . date('Ymdhis').'_' . rand(100, 999999999) . '.' . $file->getClientOriginalExtension();
             $file->storeAs("{$path}/", $fileName);
+
 
 
             $path = "{$path}/{$fileName}";

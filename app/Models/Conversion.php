@@ -11,6 +11,7 @@ class Conversion extends Model
 
     protected $guarded = [];
 
+
     public function ticket(){
         return $this->belongsTo(Ticket::class, 'ticket_id', 'id');
     }
@@ -24,4 +25,8 @@ class Conversion extends Model
     public function admin(){
         return $this->belongsTo(Admin::class);
     }
+    public function conversionFile(){
+        return $this->hasMany(conversionFile::class, 'conversion_id', 'id');
+    }
+
 }

@@ -15,7 +15,7 @@ class TicketViewController extends Controller
 {
     use ImagesTrait;
     public function viewTicket($id){
-       $conversions = Conversion::where('ticket_id', $id)->with('customer','ticket:id,ticket_code,subject','admin:id,name')->get();
+        $conversions = Conversion::where('ticket_id', $id)->with('customer','ticket:id,ticket_code,subject','admin:id,name','conversionFile:id,conversion_id,file')->get();
 
         return view('customer.viewTickets', ['ticketId' => $id, 'conversions' => $conversions]);
     }
@@ -58,6 +58,8 @@ class TicketViewController extends Controller
            // return redirect()->route('admin.view.ticket', $id)->with(['error' => $ex->messsage]);
             return $ex->getMessage();
         }
-
+    }
+    public function replayClosed($ticketId){
+        return $ticketId;
     }
 }

@@ -13,8 +13,8 @@
                           <p>Subject: <span class="font-weight-bold">{{$conversions[0]->ticket->subject}}</span></p>
                         </div>
                         <div class="p-3">
-                          <button class="btn btn-info">Replay</button>
-                          <button class="btn btn-danger">Closed</button>
+                          <button class="btn btn-info" id="reply-btn">Reply</button>
+                          <a href="{{ route('customer.replay.closed', $ticketId) }}"><button class="btn btn-danger">Closed</button></a>
                         </div>
                       </div>
                       @foreach ($conversions as $conversion)
@@ -27,10 +27,13 @@
                                   <p>posted by {{$conversion->customer->name}} {{date('d-m-Y | H:i A', strtotime($conversion->created_at))}}</p>
                                   <p><span class="badge badge-success">Owner</span></p>
                               @endif
-
                           </div>
                           <div class="ticket-info p-3">
                             <p>{!! $conversion->message !!}</p>
+                            @foreach ( @$conversion->conversionFile as $imageItem)
+                            <img src="{{$imageItem->file_path}}" alt="image" style="width: 150px; height:150px">
+                            @endforeach
+
                           </div>
                         </div>
                       @endforeach
@@ -47,8 +50,10 @@
                 </div>
             </div>
         </div>
-        <div class="replay col-md-12 card mt-1 mx-auto p-3">
-            <p class="font-weight-bold">Reply</p>
+        <div class="replay col-md-12 mt-1 mx-auto" id="reply">
+            <div class="card">
+                <div class="card-body">
+                    <p class="font-weight-bold">Reply</p>
             <div class="user-info d-flex">
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -84,6 +89,8 @@
                     <button type="reset" class="btn btn-danger">Cancel</button>
                 </div>
             </form>
+                </div>
+            </div>
         </div>
       </div>
 </div>
@@ -119,6 +126,13 @@
            }
           }
     })
+    //auto scroll down when reply button click
+    var reply = document.getElementById("reply-btn");
+    reply.addEventListener('click', function(e){
+        var elmntToView = document.getElementById("reply");
+        elmntToView.scrollIntoView({behavior: "smooth"});
+    })
+
 
 
 
