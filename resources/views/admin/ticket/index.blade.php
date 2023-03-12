@@ -21,10 +21,9 @@
           <table id="example1" class="table table-bordered table-striped ticket_datatable">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>Ticket No</th>
                     <th>Customer Email</th>
                     <th>Product Name</th>
-                    <th>Ticket No</th>
                     <th>Priority</th>
                     <th>Status</th>
                     <th>Conversation</th>
@@ -105,10 +104,9 @@
    //    "dom":'lBfrtip',
           ajax: "{{ route('ticket.all') }}",
           columns: [
-              {data: 'id', name: 'id'},
+              {data: 'ticket_code', name: 'ticket_code'},
               {data: 'customer.email', name: 'customer.email'},
               {data: 'product.name', name: 'product.name'},
-              {data: 'ticket_code', name: 'ticket_code'},
               {data: 'priority', name: 'priority'},
               {data: 'ticket_status', name: 'ticket_status'},
               {data: 'action', name: 'action', orderable: false, searchable: false},

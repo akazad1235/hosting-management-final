@@ -29,7 +29,7 @@ class TicketController extends Controller
 
 
     /*
-     * all ticket list show
+     * all ticket list show live chatting
      */
     public function index(Request $req){
         $data = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->with('conversion','product:id,name')->orderBy('id', 'asc')->get();
@@ -74,7 +74,7 @@ class TicketController extends Controller
                     return '<span class="badge badge-'.randomStatusColor($row->status).'">'.$row->status.'</span>';
                 })
                 ->addColumn('action', function($row){
-                        return '<a href="'.route('customer.view.ticket', $row->id).'" class="edit btn  btn-danger btn-sm manageOrder">Open Conversions</a>';
+                        return '<a href="'.route('customer.view.ticket', $row->id).'" class="edit btn  btn-danger btn-sm">Open Conversions</a>';
                 })
                 ->rawColumns(['created_at','ticket_status','action'])
                 ->make(true);
@@ -112,6 +112,7 @@ class TicketController extends Controller
                     'customer_id' => $user->id,
                     'product_id' => $request->product_id,
                     'support_team' => $request->support_team,
+                    'subject' => $request->subject,
                     'ticket_code' => random_int(100000, 999999),
                     'priority' => $request->priority,
                 ]);
@@ -141,7 +142,7 @@ class TicketController extends Controller
                     $convertDate =  Carbon::createFromFormat('d-m-y h:i:s', $nowDate)->diffForHumans();
                      event(new CustomerTicket($user->name, $user->email, $ticket->id, $convertDate));
                     DB::commit();
-                    return redirect()->route('customer.ticket.list')->with('message','Data added Successfully');
+                    return redirect()->route('customer.ticket.all')->with('message','Data added Successfully');
                 }else{
                     throw new \Exception('Invalid Information, Please Try again');
                 }
@@ -151,6 +152,7 @@ class TicketController extends Controller
 
 
         }catch (\Exception $ex){
+            DB::rollBack();
             return redirect()->route('customer.ticket.list')->with('error',$ex->getMessage());
         }
 

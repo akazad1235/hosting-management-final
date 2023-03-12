@@ -48,7 +48,7 @@ class TicketController extends Controller
     }
 
     public function allTicket(Request $req){
-        $data = Ticket::with('conversion','product:id,name')->orderBy('id', 'desc')->get();
+        $data = Ticket::with('conversion','customer:id,email','product:id,name')->orderBy('id', 'desc')->get();
         if ($req->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()

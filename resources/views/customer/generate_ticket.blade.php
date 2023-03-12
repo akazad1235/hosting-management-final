@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <label for="priority">
-                        Set Priority
+                        Set Priority<span class="text-danger">*</span>
                     </label>
                     <select class="form-control @error('priority') is-invalid @enderror" id="priority" name="priority" required>
                         <option value="">Select One</option>
@@ -55,7 +55,7 @@
 
                 <div class="col-md-4 mb-3">
                     <label for="support_team">
-                        Select Support Team
+                        Select Support Team<span class="text-danger">*</span>
                     </label>
                     <select class="form-control @error('support_team') is-invalid @enderror" id="support_team" name="support_team" required>
                         <option value="">Select One</option>
@@ -72,7 +72,7 @@
 
                 <div class="col-md-4 mb-3">
                     <label for="product">
-                        Select Your Product (not mendetory)
+                        Select Your Product<span class="text-danger">*</span>
                     </label>
                     <select class="form-control @error('product_id') is-invalid @enderror" id="product" name="product_id">
                         <option value="">Select One</option>
@@ -87,13 +87,25 @@
                     @enderror
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="name">
+                        Subject<span class="text-danger">*</span>
+                    </label>
+                    <input type="text" name="subject" placeholder="Enter subject about issues" class="form-control @error('subject') is-invalid @enderror"/>
+                    @error('subject')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label for="conversation">
-                        Type your issue
+                        Message<span class="text-danger">*</span>
                     </label>
-                    <textarea class="form-control  @error('message') is-invalid @enderror" name="message" id="conversation" cols="100" rows="5" placeholder="Typeing..."></textarea>
+                    <textarea class="form-control  @error('message') is-invalid @enderror" name="message" id="conversation" cols="100" rows="5" placeholder="Typeing of your issues..."></textarea>
 
                     @error('message')
                         <div class="text-danger">
@@ -102,10 +114,11 @@
                     @enderror
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <div class="mb-3 @error('image') is-invalid @enderror">
-                        <label for="formFile" class="form-label"> Submit screenshot only (not recomended)</label>
+                        <label for="formFile" class="form-label"> Submit screenshot only <span class="text-secondary">(optional)</span></label>
                         <input class="form-control" type="file" id="formFile" name="image" accept="image/png, image/gif, image/jpeg, image/jpg">
                     </div>
                     @error('image')
@@ -123,5 +136,14 @@
     </div>
         </div>
     </div>
-
+    @push('page-script')
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#conversation').summernote({
+                minHeight: 200,
+            });
+      });
+    </script>
+@endpush
 @endsection

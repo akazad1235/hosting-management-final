@@ -9,8 +9,8 @@
                 <div class="card-body">
                     <div class="header d-flex justify-content-between border-bottom border-gray">
                         <div class="p-3">
-                          <p>View Ticket <span class="font-weight-bold">#9479798</span></p>
-                          <p>Subject: <span class="font-weight-bold">Suerver Issues</span></p>
+                          <p>View Ticket <span class="font-weight-bold">#{{$conversions[0]->ticket->ticket_code}}</span></p>
+                          <p>Subject: <span class="font-weight-bold">{{$conversions[0]->ticket->subject}}</span></p>
                         </div>
                         <div class="p-3">
                           <button class="btn btn-info">Replay</button>
@@ -58,7 +58,6 @@
                     <label for="email">Email</label>
                     <input type="email" class="form-control"  value="{{ Auth::guard('customer')->user()->email }}">
                   </div>
-
             </div>
             <form action="{{route('customer.replay', $ticketId)}}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -68,8 +67,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="file">File</label>
-                    <input type="file" class="form-control" name="file"  id="file">
+                    <div class="d-flex">
+                      <label for="file">File</label>
+                      <p class="btn btn-info btn-sm ml-1" title="Add Another File" onclick="addAnotherFile()">add</p>
+                    </div>
+                    <div id="multiple-file" class="increment">
+                        <div class="bind d-flex mb-1">
+                            <input type="file" class="form-control" name="files[]"  id="file" multiple="multiple">
+                            <p class="btn btn-danger remove" id="remove-item">remove</p>
+                        </div>
+
+                    </div>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -89,6 +97,31 @@
             minHeight: 200,
         });
       });
+    </script>
+    <script>
+      //user can multiple file add
+      function addAnotherFile(){
+        $("#multiple-file").append(`<div class="bind d-flex mb-1">
+                            <input type="file" class="form-control" name="files[]"  id="file" multiple="multiple">
+                            <p class="btn btn-danger remove" id="remove-item">remove</p>
+                        </div>`);
+
+      }
+
+    //each file element can remove
+    let removeItem = document.getElementById('multiple-file');
+    removeItem.addEventListener('click', function(e){
+          if(this.contains(e.target)){
+           var id =document.getElementsByTagName("p");
+           //if target element become p then parent element can remove()
+           if(e.target.tagName == 'P'){
+            e.target.parentElement.remove()
+           }
+          }
+    })
+
+
+
     </script>
 @endpush
 

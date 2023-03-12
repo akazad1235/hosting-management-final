@@ -9,8 +9,8 @@
                 <div class="card-body">
                     <div class="header d-flex justify-content-between border-bottom border-gray">
                         <div class="p-3">
-                          <p>View Ticket <span class="font-weight-bold">#9479798</span></p>
-                          <p>Subject: <span class="font-weight-bold">Suerver Issues</span></p>
+                          <p>View Ticket <span class="font-weight-bold">#{{@$conversions[0]->ticket->ticket_code}}</span></p>
+                          <p>Subject: <span class="font-weight-bold">{{@$conversions[0]->ticket->subject}}</span></p>
                         </div>
                         <div class="p-3">
                           <button class="btn btn-info">Replay</button>

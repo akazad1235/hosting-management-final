@@ -47,6 +47,23 @@ trait ImagesTrait{
         return asset('images/default-image.png');
     }
 
+    public function uploadMultipleImage($files='', $path='', $existFileName=''){
+        $arr = [];
+        foreach ($files as $file){
+
+          //  $fileName =  time().'.'.$file->getClientOriginalName();
+            // $request->file('image')->storeAs('images', $fileName);
+            $fileName = rand(0, 999999999) . '_' . date('Ymdhis').'_' . rand(100, 999999999) . '.' . $file->getClientOriginalExtension();
+            $file->storeAs("{$path}/", $fileName);
+
+
+            $path = "{$path}/{$fileName}";
+            array_push($arr, $path);
+
+        }
+        return json_encode($arr);
+    }
+
 }
 
 ?>
